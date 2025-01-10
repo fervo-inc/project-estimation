@@ -18,59 +18,23 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
-    public ProjectDTO createProject(ProjectDTO projectDTO) {
+    public Project createProject(ProjectDTO projectDTO) {
         if (projectRepository.findByName(projectDTO.name()).isPresent()) {
             throw new IllegalArgumentException("Project with the same name already exists");
         }
 
-        var project = new Project(
-                null,
-                projectDTO.name(),
-                projectDTO.description(),
-                projectDTO.location(),
-                projectDTO.startDate(),
-                projectDTO.endDate()
-        );
-        var savedProject = projectRepository.save(project);
-        return new ProjectDTO(
-                savedProject.getId(),
-                savedProject.getName(),
-                savedProject.getDescription(),
-                savedProject.getLocation(),
-                savedProject.getStartDate(),
-                savedProject.getEndDate()
-        );
+        var project = projectDTO.toProject();
+        return projectRepository.save(project);
     }
 
-    public Page<ProjectDTO> getAllProjects(PageRequest pageRequest) {
-        return projectRepository.findAll(pageRequest)
-                .map(project -> new ProjectDTO(
-                        project.getId(),
-                        project.getName(),
-                        project.getDescription(),
-                        project.getLocation(),
-                        project.getStartDate(),
-                        project.getEndDate()
-                ));
+    public Page<Project> getAllProjects(PageRequest pageRequest) {
+        return projectRepository.findAll(pageRequest);
     }
 
-    public ProjectDTO updateProject(UUID id, ProjectDTO projectDTO) {
-        var project = projectRepository.findById(id)
+    public Project updateProject(UUID id, ProjectDTO projectDTO) {
+        projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
-        project.setName(projectDTO.name());
-        project.setDescription(projectDTO.description());
-        project.setLocation(projectDTO.location());
-        project.setStartDate(projectDTO.startDate());
-        project.setEndDate(projectDTO.endDate());
-        var updatedProject = projectRepository.save(project);
-        return new ProjectDTO(
-                updatedProject.getId(),
-                updatedProject.getName(),
-                updatedProject.getDescription(),
-                updatedProject.getLocation(),
-                updatedProject.getStartDate(),
-                updatedProject.getEndDate()
-        );
+        return projectRepository.save(projectDTO.toProject());
     }
 
     public void deleteProject(UUID id) {
