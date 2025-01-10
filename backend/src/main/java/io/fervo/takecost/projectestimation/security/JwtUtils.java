@@ -64,8 +64,8 @@ public class JwtUtils {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Date now = new Date();
-        Date expiration = new Date(now.getTime() + tokenValidity);
+        var now = new Date();
+        var expiration = new Date(now.getTime() + tokenValidity);
 
         return Jwts.builder()
                 .issuer("TakeCost")

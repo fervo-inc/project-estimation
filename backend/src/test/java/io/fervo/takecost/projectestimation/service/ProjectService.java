@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,13 +35,12 @@ class ProjectServiceTest {
 
     @Test
     void testCreateProject() {
-        Project project = new Project(null, "New Project", "Description", "Location", "2025-01-01", "2025-12-31");
-        Project savedProject = new Project(UUID.randomUUID(), "New Project", "Description", "Location", "2025-01-01", "2025-12-31");
+        var savedProject = new Project(UUID.randomUUID(), "New Project", "Description", "Location", LocalDate.parse("2025-01-01"), LocalDate.parse("2025-12-31"));
 
         when(projectRepository.save(any(Project.class))).thenReturn(savedProject);
 
-        ProjectDTO projectDTO = new ProjectDTO(null, "New Project", "Description", "Location", "2025-01-01", "2025-12-31");
-        ProjectDTO result = projectService.createProject(projectDTO);
+        var projectDTO = new ProjectDTO(null, "New Project", "Description", "Location", LocalDate.now(), LocalDate.now().plusMonths(11));
+        var result = ProjectDTO.fromProject(projectService.createProject(projectDTO));
 
         assertNotNull(result.id());
         assertEquals("New Project", result.name());
@@ -49,7 +49,7 @@ class ProjectServiceTest {
 
     @Test
     void testCreateProjectWithDuplicateName_Service() {
-        ProjectDTO projectDTO = new ProjectDTO(null, "Duplicate Project", "Description", "Location", "2025-01-01", "2025-12-31");
+        var projectDTO = new ProjectDTO(null, "Duplicate Project", "Description", "Location", LocalDate.now(), LocalDate.now().plusMonths(11));
 
         Mockito.when(projectRepository.findByName("Duplicate Project"))
                 .thenReturn(Optional.of(new Project()));
@@ -64,28 +64,28 @@ class ProjectServiceTest {
 
     @Test
     void testGetAllProjects() {
-        Project project = new Project(UUID.randomUUID(), "Project 1", "Description", "Location", "2025-01-01", "2025-12-31");
+        Project project = new Project(UUID.randomUUID(), "Project 1", "Description", "Location", LocalDate.now(), LocalDate.now().plusMonths(11));
         Page<Project> page = new PageImpl<>(List.of(project), PageRequest.of(0, 10), 1);
 
         when(projectRepository.findAll(any(PageRequest.class))).thenReturn(page);
 
-        Page<ProjectDTO> result = projectService.getAllProjects(PageRequest.of(0, 10));
+        Page<Project> result = projectService.getAllProjects(PageRequest.of(0, 10));
 
         assertEquals(1, result.getTotalElements());
-        assertEquals("Project 1", result.getContent().get(0).name());
+        assertEquals("Project 1", result.getContent().get(0).getName());
     }
 
     @Test
     void testUpdateProject() {
         UUID projectId = UUID.randomUUID();
-        Project project = new Project(projectId, "Old Project", "Old Description", "Old Location", "2025-01-01", "2025-12-31");
-        Project updatedProject = new Project(projectId, "Updated Project", "Updated Description", "Updated Location", "2025-01-01", "2025-12-31");
+        Project project = new Project(projectId, "Old Project", "Old Description", "Old Location", LocalDate.now(), LocalDate.now().plusMonths(11));
+        Project updatedProject = new Project(projectId, "Updated Project", "Updated Description", "Updated Location", LocalDate.now(), LocalDate.now().plusMonths(11));
 
         when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
         when(projectRepository.save(any(Project.class))).thenReturn(updatedProject);
 
-        ProjectDTO projectDTO = new ProjectDTO(projectId, "Updated Project", "Updated Description", "Updated Location", "2025-01-01", "2025-12-31");
-        ProjectDTO result = projectService.updateProject(projectId, projectDTO);
+        ProjectDTO projectDTO = new ProjectDTO(projectId, "Updated Project", "Updated Description", "Updated Location", LocalDate.now(), LocalDate.now().plusMonths(11));
+        ProjectDTO result = ProjectDTO.fromProject(projectService.updateProject(projectId, projectDTO));
 
         assertEquals("Updated Project", result.name());
         verify(projectRepository, times(1)).save(any(Project.class));
