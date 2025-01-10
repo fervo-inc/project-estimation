@@ -2,7 +2,6 @@ package io.fervo.takecost.projectestimation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.fervo.takecost.projectestimation.dto.ProjectDTO;
-import io.fervo.takecost.projectestimation.repository.ProjectRepository;
 import io.fervo.takecost.projectestimation.service.ProjectService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,9 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,28 +25,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProjectController.class)
 class ProjectControllerTest {
 
+    private static final String BASE_URL = "/api/v1/projects"; // Extracted URL constant
+
     @Autowired
     private MockMvc mockMvc;
-
-    @MockitoBean
-    private ProjectService projectService;
-
-    @MockitoBean
-    private ProjectRepository projectRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private ProjectService projectService; // Removed unused `projectRepository`
+
     @Test
     void testCreateProject() throws Exception {
-        ProjectDTO projectDTO = new ProjectDTO(null, "New Project", "Description", "Location", "2025-01-01", "2025-12-31");
-        ProjectDTO savedProjectDTO = new ProjectDTO(UUID.randomUUID(), "New Project", "Description", "Location", "2025-01-01", "2025-12-31");
+        ProjectDTO project = createProjectDTO(null, "New Project");
+        ProjectDTO savedProject = createProjectDTO(UUID.randomUUID(), "New Project");
 
-        Mockito.when(projectService.createProject(any(ProjectDTO.class))).thenReturn(savedProjectDTO);
+        Mockito.when(projectService.createProject(any(ProjectDTO.class))).thenReturn(savedProject.toProject());
 
-        mockMvc.perform(post("/api/v1/projects")
+        mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(projectDTO)))
+                        .content(objectMapper.writeValueAsString(project)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.name").value("New Project"));
@@ -55,14 +53,14 @@ class ProjectControllerTest {
 
     @Test
     void testCreateProjectWithDuplicateName() throws Exception {
-        ProjectDTO projectDTO = new ProjectDTO(null, "Duplicate Project", "Description", "Location", "2025-01-01", "2025-12-31");
+        ProjectDTO project = createProjectDTO(null, "Duplicate Project");
 
         Mockito.when(projectService.createProject(any(ProjectDTO.class)))
                 .thenThrow(new IllegalArgumentException("Project with the same name already exists"));
 
-        mockMvc.perform(post("/api/v1/projects")
+        mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(projectDTO)))
+                        .content(objectMapper.writeValueAsString(project)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Project with the same name already exists"))
                 .andExpect(jsonPath("$.status").value(400))
@@ -71,12 +69,12 @@ class ProjectControllerTest {
 
     @Test
     void testGetAllProjects() throws Exception {
-        ProjectDTO projectDTO = new ProjectDTO(UUID.randomUUID(), "Project 1", "Description", "Location", "2025-01-01", "2025-12-31");
-        Page<ProjectDTO> page = new PageImpl<>(List.of(projectDTO), PageRequest.of(0, 10), 1);
+        ProjectDTO project = createProjectDTO(UUID.randomUUID(), "Project 1");
+        Page<ProjectDTO> projectPage = new PageImpl<>(List.of(project), PageRequest.of(0, 10), 1);
 
-        Mockito.when(projectService.getAllProjects(any(PageRequest.class))).thenReturn(page);
+        Mockito.when(projectService.getAllProjects(any(PageRequest.class))).thenReturn(projectPage.map(ProjectDTO::toProject));
 
-        mockMvc.perform(get("/api/v1/projects")
+        mockMvc.perform(get(BASE_URL)
                         .param("page", "0")
                         .param("size", "10"))
                 .andExpect(status().isOk())
@@ -87,13 +85,13 @@ class ProjectControllerTest {
     @Test
     void testUpdateProject() throws Exception {
         UUID projectId = UUID.randomUUID();
-        ProjectDTO updatedProjectDTO = new ProjectDTO(projectId, "Updated Project", "Updated Description", "Updated Location", "2025-01-01", "2025-12-31");
+        ProjectDTO updatedProject = createProjectDTO(projectId, "Updated Project");
 
-        Mockito.when(projectService.updateProject(eq(projectId), any(ProjectDTO.class))).thenReturn(updatedProjectDTO);
+        Mockito.when(projectService.updateProject(eq(projectId), any(ProjectDTO.class))).thenReturn(updatedProject.toProject());
 
-        mockMvc.perform(put("/api/v1/projects/" + projectId)
+        mockMvc.perform(put(BASE_URL + "/" + projectId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedProjectDTO)))
+                        .content(objectMapper.writeValueAsString(updatedProject)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Updated Project"));
     }
@@ -104,8 +102,20 @@ class ProjectControllerTest {
 
         Mockito.doNothing().when(projectService).deleteProject(projectId);
 
-        mockMvc.perform(delete("/api/v1/projects/" + projectId))
+        mockMvc.perform(delete(BASE_URL + "/" + projectId))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Project deleted successfully"));
+    }
+
+    // Extracted helper method to create reusable ProjectDTO instances
+    private ProjectDTO createProjectDTO(UUID id, String name) {
+        return new ProjectDTO(
+                id,
+                name,
+                "Description",
+                "Location",
+                LocalDate.parse("2025-01-01"),
+                LocalDate.parse("2025-12-31")
+        );
     }
 }
