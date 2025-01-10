@@ -17,19 +17,19 @@ public class UserDetailsServiceConfig {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("password"))
-                .roles("ADMIN")
+                .roles(Role.ADMIN.name())
                 .build();
 
         UserDetails manager = User.builder()
                 .username("manager")
                 .password(passwordEncoder.encode("password"))
-                .roles("PROJECT_MANAGER")
+                .roles(Role.PROJECT_MANAGER.name())
                 .build();
 
         UserDetails teamMember = User.builder()
                 .username("member")
                 .password(passwordEncoder.encode("password"))
-                .roles("TEAM_MEMBER")
+                .roles(Role.TEAM_MEMBER.name())
                 .build();
 
         return new InMemoryUserDetailsManager(admin, manager, teamMember);

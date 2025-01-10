@@ -2,6 +2,8 @@ package io.fervo.takecost.projectestimation.controller;
 
 import io.fervo.takecost.projectestimation.dto.LoginRequest;
 import io.fervo.takecost.projectestimation.security.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag(name = "Authentication", description = "Endpoints for user authentication")
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -25,6 +28,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
+    @Operation(summary = "Login", description = "Authenticate user and return a JWT token")
     @PostMapping("/login")
     public Map<String, String> login(@Valid @RequestBody LoginRequest credentials) {
         log.info("Logging in user: {}", credentials.username());
