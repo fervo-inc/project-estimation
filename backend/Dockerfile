@@ -2,7 +2,7 @@
 FROM bellsoft/liberica-openjre-debian:17-cds AS builder
 WORKDIR /builder
 # This points to the built jar file in the target folder
-ARG JAR_FILE=backend/build/libs/backend-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=build/libs/backend-0.0.1-SNAPSHOT.jar
 # Copy the jar file to the working directory and rename it to application.jar
 COPY ${JAR_FILE} application.jar
 # Extract the jar file using an efficient layout

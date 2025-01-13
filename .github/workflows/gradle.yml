@@ -66,6 +66,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-jar
+          path: backend/build/libs/
 
       # Set up Docker
       - name: Log in to container registry
@@ -77,7 +78,7 @@ jobs:
 
       # Build Docker Image
       - name: Build the Docker image
-        run: docker build -t ghcr.io/fervo-inc/project-estimation:latest ../../Dockerfile ../../
+        run: docker build -t ghcr.io/fervo-inc/project-estimation:latest -f backend/Dockerfile .
 
       # Push Docker Image
       - name: Push the Docker image

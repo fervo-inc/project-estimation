@@ -1,11 +1,11 @@
 services:
-  app:
+  backend:
     image: 'project-estimation:latest'
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
       args:
-        JAR_FILE: backend/build/libs/backend-0.0.1-SNAPSHOT.jar
+        JAR_FILE: build/libs/backend-0.0.1-SNAPSHOT.jar
     container_name: project-estimation
     ports:
       - "8080:8080" # host:container
