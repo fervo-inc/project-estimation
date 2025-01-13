@@ -33,6 +33,10 @@ security:
 
 logging:
   level:
+    io:
+      fervo:
+        takecost:
+          projectestimation: DEBUG
     org:
       hibernate:
         SQL: INFO
