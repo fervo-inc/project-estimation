@@ -42,6 +42,7 @@ compose.
 The exposed endpoints are documented with Swagger. You can access the Swagger UI for testing purposes:
 
 - Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- OpenAPI JSON definition: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
 
 ## Postman Collection
 
