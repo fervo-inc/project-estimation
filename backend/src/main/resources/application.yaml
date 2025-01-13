@@ -7,6 +7,8 @@ spring:
       mode: always # This makes spring run the resources/data.sql after DB schema init.
   application:
     name: ProjectEstimation
+  profiles:
+    active: ${ACTIVE_PROFILES}
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
