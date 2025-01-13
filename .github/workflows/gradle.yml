@@ -45,7 +45,7 @@ jobs:
       # Fix permission issue with gradlew
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        
+
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: app-jar
-          path: build/libs/*.jar
+          path: backend/build/libs/*.jar
   docker:
     runs-on: ubuntu-latest
     needs: build  # Ensures this runs after the build job
