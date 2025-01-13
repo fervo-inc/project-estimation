@@ -1,8 +1,7 @@
 package io.fervo.takecost.projectestimation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.fervo.takecost.projectestimation.dto.ProjectDTO;
-import io.fervo.takecost.projectestimation.security.JwtUtils;
+import io.fervo.takecost.projectestimation.config.OpenApiConfig;
 import io.fervo.takecost.projectestimation.service.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -43,7 +42,7 @@ class ProjectControllerTest {
     private ProjectService projectService;
 
     @MockitoBean
-    private JwtUtils jwtUtils;
+    private OpenApiConfig.JwtUtils jwtUtils;
 
 
     @BeforeEach
