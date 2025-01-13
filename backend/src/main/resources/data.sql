@@ -25,8 +25,8 @@ ON CONFLICT (id) DO NOTHING;
 
 -- LaborCategory
 INSERT INTO labor_categories (id, name, description)
-VALUES ('1', 'Carpenter', ''),
-       ('2', 'Electrician', '')
+VALUES ('1', 'Carpenter', 'notes'),
+       ('2', 'Electrician', 'notes')
 ON CONFLICT (id) DO NOTHING;
 
 -- ProjectLabor
