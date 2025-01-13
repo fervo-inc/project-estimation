@@ -1,4 +1,4 @@
-package io.fervo.takecost.projectestimation.security;
+package io.fervo.takecost.projectestimation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

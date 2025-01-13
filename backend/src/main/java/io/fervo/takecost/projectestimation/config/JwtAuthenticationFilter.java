@@ -1,4 +1,4 @@
-package io.fervo.takecost.projectestimation.security;
+package io.fervo.takecost.projectestimation.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -67,3 +67,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 }
+

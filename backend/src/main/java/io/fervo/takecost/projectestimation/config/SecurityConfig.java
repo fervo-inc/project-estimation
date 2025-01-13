@@ -1,4 +1,4 @@
-package io.fervo.takecost.projectestimation.security;
+package io.fervo.takecost.projectestimation.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/projects/**").hasAnyRole("ADMIN", "PROJECT_MANAGER", "TEAM_MEMBER")
                         // OpenAPI / Swagger
                         .requestMatchers("/api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()

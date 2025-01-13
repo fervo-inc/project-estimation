@@ -1,9 +1,8 @@
-package io.fervo.takecost.projectestimation.security;
+package io.fervo.takecost.projectestimation.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.IOException;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -95,8 +94,14 @@ public class JwtUtils {
     private Claims extractAllClaims(String token) {
         try {
             return jwtParser.parseSignedClaims(token).getPayload();
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid JWT token", e);
+        } catch (ExpiredJwtException e) {
+            throw new IllegalArgumentException("JWT token is expired.", e);
+        } catch (MalformedJwtException e) {
+            throw new IllegalArgumentException("JWT token is malformed.", e);
+        } catch (io.jsonwebtoken.security.SignatureException e) {
+            throw new IllegalArgumentException("JWT signature validation failed.", e);
+        } catch (IOException | IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid JWT token.", e);
         }
     }
 

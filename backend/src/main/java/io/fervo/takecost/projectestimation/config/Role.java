@@ -1,4 +1,4 @@
-package io.fervo.takecost.projectestimation.security;
+package io.fervo.takecost.projectestimation.config;
 
 public enum Role {
     ADMIN,

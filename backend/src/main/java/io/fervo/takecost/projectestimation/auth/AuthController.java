@@ -1,12 +1,15 @@
-package io.fervo.takecost.projectestimation.controller;
+package io.fervo.takecost.projectestimation.auth;
 
-import io.fervo.takecost.projectestimation.dto.LoginRequest;
-import io.fervo.takecost.projectestimation.security.JwtUtils;
+import io.fervo.takecost.projectestimation.config.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
@@ -29,7 +32,12 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @Operation(summary = "Login", description = "Authenticate user and return a JWT token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "JWT token generated successfully", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Invalid username or password", content = @Content)
+    })
     @PostMapping("/login")
+    @PreAuthorize("permitAll()")
     public Map<String, String> login(@Valid @RequestBody LoginRequest credentials) {
         log.info("Logging in user: {}", credentials.username());
 

@@ -1,4 +1,4 @@
-package io.fervo.takecost.projectestimation.dto;
+package io.fervo.takecost.projectestimation.auth;
 
 import jakarta.validation.constraints.NotBlank;
 
