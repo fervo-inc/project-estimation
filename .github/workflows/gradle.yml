@@ -89,7 +89,8 @@ jobs:
         run: docker build \
           -t ghcr.io/fervo-inc/project-estimation:latest \
           -f backend/Dockerfile \
-          --build-arg JAR_FILE=backend/backend-0.0.1-SNAPSHOT.jar .
+          --build-arg JAR_FILE=backend/backend-0.0.1-SNAPSHOT.jar \
+          backend/
 
       # Push Docker Image
       - name: Push the Docker image
