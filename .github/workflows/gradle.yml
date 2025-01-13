@@ -68,12 +68,21 @@ jobs:
           name: app-jar
           path: backend/
 
+      - name: Verify JAR location 1
+        run: |
+          echo "Checking backend/build/libs/"
+          pwd
+          ls -la
+          tree
+          echo "Searching for the JAR file..."
+          find . -name "*.jar" -type f
+
       - name: Unzip downloaded artifact
         run: |
           echo "Unzipping downloaded artifact..."
           unzip backend/app-jar.zip -d .
 
-      - name: Verify JAR location
+      - name: Verify JAR location 2
         run: |
           echo "Checking backend/build/libs/"
           pwd
