@@ -68,14 +68,6 @@ jobs:
           name: app-jar
           path: backend/
 
-      - name: Verify JAR location 1
-        run: |
-          echo "Checking backend/build/libs/"
-          pwd
-          tree
-          echo "Searching for the JAR file..."
-          find . -name "*.jar" -type f
-
       # Set up Docker
       - name: Log in to container registry
         uses: docker/login-action@v2
@@ -89,7 +81,7 @@ jobs:
         run: docker build \
           -t ghcr.io/fervo-inc/project-estimation:latest \
           -f backend/Dockerfile \
-          --build-arg JAR_FILE=backend/backend-0.0.1-SNAPSHOT.jar \
+          --build-arg JAR_FILE=backend-0.0.1-SNAPSHOT.jar \
           backend/
 
       # Push Docker Image
