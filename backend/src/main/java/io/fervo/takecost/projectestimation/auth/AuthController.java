@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
@@ -37,7 +36,6 @@ public class AuthController {
             @ApiResponse(responseCode = "401", description = "Invalid username or password", content = @Content)
     })
     @PostMapping("/login")
-    @PreAuthorize("permitAll()")
     public Map<String, String> login(@Valid @RequestBody LoginRequest credentials) {
         log.info("Logging in user: {}", credentials.username());
 
