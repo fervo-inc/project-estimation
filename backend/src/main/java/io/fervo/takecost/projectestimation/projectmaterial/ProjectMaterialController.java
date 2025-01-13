@@ -1,10 +1,14 @@
 package io.fervo.takecost.projectestimation.projectmaterial;
 
+import io.fervo.takecost.projectestimation.material.MaterialCatalog;
+import io.fervo.takecost.projectestimation.project.model.Project;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,10 +67,19 @@ public class ProjectMaterialController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<ProjectMaterialDTO> createProjectMaterial(
             @PathVariable Long projectId,
-            @Valid @RequestBody ProjectMaterialDTO projectMaterialDTO) {
-        var projectMaterial = projectMaterialMapper.toEntity(projectMaterialDTO);
-        projectMaterial.setId(projectId);
-        var savedMaterial = service.save(projectMaterial);
+            @Valid @RequestBody CreateProjectMaterialDTO dto) {
+        log.info("Adding material {} to project id {}", dto, projectId);
+
+        var pm = ProjectMaterial.builder()
+                .project(Project.builder().id(projectId).build())
+                .materialCatalog(MaterialCatalog.builder().id(dto.materialId()).build())
+                .quantity(dto.quantity())
+                .notes(dto.notes())
+                .unitPrice(dto.unitPrice())
+                .build();
+
+        log.info("Project material: {}", pm);
+        var savedMaterial = service.save(pm);
         return ResponseEntity.status(HttpStatus.CREATED).body(projectMaterialMapper.toDTO(savedMaterial));
     }
 
@@ -78,11 +91,18 @@ public class ProjectMaterialController {
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<ProjectMaterialDTO> updateProjectMaterial(
-            @PathVariable Long id,
-            @Valid @RequestBody ProjectMaterialDTO projectMaterialDTO) {
-        var projectMaterial = projectMaterialMapper.toEntity(projectMaterialDTO);
-        projectMaterial.setId(id);
-        var updatedMaterial = service.save(projectMaterial);
+            @Schema(description = "Unique identifier for the project material", example = "1")
+            @NotNull @PathVariable Long id,
+            @Valid @RequestBody UpdateProjectMaterialDTO dto) {
+
+
+        var projectMaterial = ProjectMaterial.builder()
+                .id(id)
+                .quantity(dto.quantity())
+                .unitPrice(dto.unitPrice())
+                .notes(dto.notes())
+                .build();
+        var updatedMaterial = service.update(projectMaterial);
         return ResponseEntity.ok(projectMaterialMapper.toDTO(updatedMaterial));
     }
 

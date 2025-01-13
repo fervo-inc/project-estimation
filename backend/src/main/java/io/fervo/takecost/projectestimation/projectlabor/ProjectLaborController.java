@@ -38,8 +38,11 @@ public class ProjectLaborController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "asc") String order) {
         var pageable = PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, "id"));
-        var labor = service.getAllByProjectId(projectId, pageable).map(projectLaborMapper::toDTO);
-        return ResponseEntity.ok(labor);
+        var labor = service.getAllByProjectId(projectId, pageable);
+        log.info("getAllLaborByProject labor: {}", labor.getContent());
+        var dtos = labor.map(projectLaborMapper::toDTO);
+        log.info("getAllLaborByProject dtos: {}", dtos.getContent());
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")

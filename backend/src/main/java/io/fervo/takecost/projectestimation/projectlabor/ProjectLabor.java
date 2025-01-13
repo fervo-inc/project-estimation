@@ -3,17 +3,17 @@ package io.fervo.takecost.projectestimation.projectlabor;
 import io.fervo.takecost.projectestimation.laborcategory.LaborCategory;
 import io.fervo.takecost.projectestimation.project.model.Project;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "project_labor")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ProjectLabor {
 
     @Id

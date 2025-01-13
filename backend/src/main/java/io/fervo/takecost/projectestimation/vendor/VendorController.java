@@ -37,8 +37,12 @@ public class VendorController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "asc") String order) {
         var pageable = PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, "name"));
-        var vendors = vendorService.getAllVendors(pageable).map(vendorMapper::toDTO);
-        return ResponseEntity.ok(vendors);
+        log.debug("getAllVendors: {}", pageable);
+        var vendors = vendorService.getAllVendors(pageable);
+        log.debug("getAllVendors - vendor models: {}", vendors.getContent());
+        var dtos = vendors.map(vendorMapper::toDTO);
+        log.debug("getAllVendors - vendor dtos: {}", dtos.getContent());
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")

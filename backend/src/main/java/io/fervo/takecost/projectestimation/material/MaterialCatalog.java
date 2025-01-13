@@ -3,19 +3,19 @@ package io.fervo.takecost.projectestimation.material;
 import io.fervo.takecost.projectestimation.vendor.Vendor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "material_catalogs")
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MaterialCatalog {
 
     @Id
@@ -25,7 +25,7 @@ public class MaterialCatalog {
     @Column(nullable = false, length = 255)
     private String name;
 
-    @Column
+    @Column(length = 500)
     private String description;
 
     @Column(length = 255)

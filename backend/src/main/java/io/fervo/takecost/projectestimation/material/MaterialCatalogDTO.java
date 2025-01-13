@@ -14,10 +14,25 @@ public record MaterialCatalogDTO(
         @Size(max = 255, message = "Material name cannot exceed 255 characters")
         String name,
 
+        @Size(max = 500, message = "Material description cannot exceed 255 characters")
+        String description,
+
         @Schema(description = "Material's category", example = "Building Materials")
         @NotBlank(message = "Category cannot be blank")
         @Size(max = 255, message = "Category cannot exceed 255 characters")
         String category,
+
+        @Schema(description = "Material's sub-category", example = "Building Materials")
+        @Size(max = 255, message = "Sub-category cannot exceed 255 characters")
+        String subCategory,
+
+        @Schema(description = "Material's stock quantity", example = "100")
+        @PositiveOrZero(message = "Stock quantity cannot be negative")
+        Integer inStock,
+
+        @Schema(description = "Material's lead time in days", example = "10")
+        @PositiveOrZero(message = "Lead time cannot be negative")
+        Integer leadTimeDays,
 
         @Schema(description = "Material's unit type", example = "Kilogram")
         @NotBlank(message = "Unit type cannot be blank")
