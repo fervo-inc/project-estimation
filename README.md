@@ -4,37 +4,58 @@ This project provides an API for managing and estimating project costs. It is bu
 JPA**, **Spring MVC**, and relies on **PostgreSQL** for data storage. The application is containerized using Docker and
 compose.
 
+## Main Components
+
+1. Backend - `/backend`
+2. Frontend - `/frontend`
+3. PostgreSQL - `compose.yaml`
+
 ## Prerequisites
 
-1. Docker and Docker Compose installed on your system.
-2. Create the `.env` file with `cp backend/src/main/resources/.env.example backend/src/main/resources/.env`.
+- Docker and Docker Compose installed on your system.
 
 ## Running the Application
 
 ### Running Using Docker Compose
 
-1. Build and start the Docker containers by running:
+1. Create the `.env` files with
+
+```
+cp backend/src/main/resources/.env.example backend/src/main/resources/.env
+cp frontend/.env.example frontend/.env
+```
+
+2. Build and start the Docker containers by running:
    ```bash
    docker compose up --build
    ```
    This will:
-    - Start the application on port **8080**.
     - Start a PostgreSQL container for the database.
+    - Start the backend application on port **8080**.
+    - Start the frontend application on port **3000**.
 
-2. Check if the service is running:
+3. Check if the service is running:
     - Navigate to the health endpoint: [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
     - Ensure the health status is **UP**.
+    - Navigate to [http://localhost:3000](http://localhost:3000), you should see a login page if you haven't logged in
+      yet.
 
-### Run via Gradle (Without Docker)
+### Run manually
 
 1. Start the DB
    ```bash
    docker compose up db
    ```
 
-2. Run using **Gradle**:
+2. Run the backend using **Gradle**:
    ```bash
    ./gradlew bootRun
+   ```
+
+3. Run the frontend using **npm/pnpm/bun**:
+   ```bash
+   npm install --force
+   npm run dev
    ```
 
 ## API Documentation
@@ -52,11 +73,20 @@ To test the API using Postman, import the Postman collection from the following 
 
 ## JWT Authentication
 
-The API uses JWT for securing its endpoints. Use the JWT token below when testing the API using **Postman** or **Swagger
-UI**:
+The API uses JWT for securing its endpoints. Use the JWT token below when testing the API using **Postman** or [*
+*Swagger
+UI**](http://localhost:8080/swagger-ui/index.html):
+
+| **User** | **Password** | **Role**        |
+|----------|--------------|-----------------|
+| admin    | password     | Admin           |
+| manager  | password     | Project Manager |
+| member   | password     | Team Member     |
+
+Or you can use this Token, just add it as a request header.
 
 ```plaintext
-eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJUYWtlQ29zdCIsInN1YiI6ImFkbWluIiwiYXVkIjpbIlRha2VDb3N0Q2xpZW50Il0sImlhdCI6MTczNjc0ODk4NCwibmJmIjoxNzM2NzQ4OTg0LCJleHAiOjE3MzczNTM3ODQsImp0aSI6ImRkODhmNjU3LTYwYTAtNDNhZi04NjlhLTYzMzA2NTQ3ZmRmZSIsInJvbGVzIjpbIkFETUlOIl19.vtsa-DbX1yGc7M-h1lrAXKOcf09vByXV2-4qS7lFE7qsXOSnypKDdldU0kEWK_VNqmbkzX-hZp-kLqRp7zKYHA
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJUYWtlQ29zdCIsInN1YiI6ImFkbWluIiwiYXVkIjpbIlRha2VDb3N0Q2xpZW50Il0sImlhdCI6MTczNjc0ODk4NCwibmJmIjoxNzM2NzQ4OTg0LCJleHAiOjE3MzczNTM3ODQsImp0aSI6ImRkODhmNjU3LTYwYTAtNDNhZi04NjlhLTYzMzA2NTQ3ZmRmZSIsInJvbGVzIjpbIkFETUlOIl19.vtsa-DbX1yGc7M-h1lrAXKOcf09vByXV2-4qS7lFE7qsXOSnypKDdldU0kEWK_VNqmbkzX-hZp-kLqRp7zKYHA
 ```
 
 ### How to Use JWT
@@ -74,7 +104,7 @@ eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJUYWtlQ29zdCIsInN1YiI6ImFkbWluIiwiYXVkIjpbIlRha2V
 
 The application utilizes the following tools and configurations:
 
-- **Health Monitoring** via the `/actuator/health` endpoint.
+- **Health Monitoring** via the [/actuator/health](http://localhost/actuator/health) endpoint.
 - **Docker Health Check** ensures all containers are initialized properly.
 - Database credentials and other sensitive data are managed in the `.env` file.
 
