@@ -22,22 +22,22 @@ public class MaterialCatalog {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String name;
 
     @Column(length = 500)
     private String description;
 
-    @Column(length = 255)
+    @Column()
     private String category;
 
-    @Column(length = 255)
+    @Column()
     private String subCategory;
 
     @Column(length = 50, nullable = false)
     private String unitType;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false)
     private BigDecimal unitPrice;
 
     // TODO: Add packageType and packagePrice for bulk materials

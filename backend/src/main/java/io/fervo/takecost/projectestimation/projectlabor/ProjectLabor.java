@@ -28,9 +28,9 @@ public class ProjectLabor {
     @JoinColumn(name = "labor_category_id", foreignKey = @ForeignKey(name = "fk_project_labor_category"))
     private LaborCategory laborCategory;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false)
     private BigDecimal hourlyRate;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false)
     private BigDecimal estimatedHours;
 }
