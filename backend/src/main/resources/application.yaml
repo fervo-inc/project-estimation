@@ -2,6 +2,9 @@ server:
   port: ${SERVER_PORT}
 
 spring:
+  sql:
+    init:
+      mode: always # This makes spring run the resources/data.sql after DB schema init.
   application:
     name: ProjectEstimation
   datasource:
