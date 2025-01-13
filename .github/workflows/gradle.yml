@@ -51,7 +51,7 @@ jobs:
 
       # Save the built artifact (e.g., JAR file) as a dependency for other jobs
       - name: Upload JAR for Docker build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: backend/build/libs/*.jar
@@ -63,7 +63,7 @@ jobs:
 
       # Download previously built JAR artifact
       - name: Download JAR from build step
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: app-jar
 
