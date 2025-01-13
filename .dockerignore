@@ -1,0 +1,6 @@
+# Ignore unnecessary files and folders
+.github/
+build/
+.gradle/
+*.log
+*.md

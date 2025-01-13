@@ -2,7 +2,7 @@
 FROM bellsoft/liberica-openjre-debian:17-cds AS builder
 WORKDIR /builder
 # This points to the built jar file in the target folder
-ARG JAR_FILE
+ARG JAR_FILE=backend/build/libs/backend-0.0.1-SNAPSHOT.jar
 # Copy the jar file to the working directory and rename it to application.jar
 COPY ${JAR_FILE} application.jar
 # Extract the jar file using an efficient layout
@@ -18,6 +18,9 @@ COPY --from=builder /builder/extracted/dependencies/ ./
 COPY --from=builder /builder/extracted/spring-boot-loader/ ./
 COPY --from=builder /builder/extracted/snapshot-dependencies/ ./
 COPY --from=builder /builder/extracted/application/ ./
+
+EXPOSE 8080
+
 # Start the application jar - this is not the uber jar used by the builder
 # This jar only contains application code and references to the extracted jar files
 # This layout is efficient to start up and CDS friendly

@@ -70,3 +70,15 @@ tasks.test {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// Used to change the jar name
+jar {
+    archiveBaseName.set("backend")
+    archiveVersion.set("0.0.1-SNAPSHOT")
+}
+
+bootJar {
+    layered {
+        
+    }
+}
