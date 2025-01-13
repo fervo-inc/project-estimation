@@ -71,7 +71,9 @@ jobs:
       - name: Verify JAR location
         run: |
           echo "Checking backend/build/libs/"
-          ls -la backend/build/libs/
+          pwd
+          ls -la
+          tree
           echo "Searching for the JAR file..."
           find . -name "*.jar" -type f
 
