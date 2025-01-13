@@ -66,7 +66,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-jar
-          path: backend/build/libs/
+          path: ../backend/build/libs/
+
+      - name: Verify JAR location
+        run: |
+          echo "Checking backend/build/libs/"
+          ls -la backend/build/libs/
+          echo "Searching for the JAR file..."
+          find . -name "*.jar" -type f
 
       # Set up Docker
       - name: Log in to container registry
