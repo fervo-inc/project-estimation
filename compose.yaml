@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
         JAR_FILE: build/libs/backend-0.0.1-SNAPSHOT.jar
-    container_name: project-estimation
+    container_name: project-estimation-backend
     ports:
       - "8080:8080" # host:container
     env_file:
@@ -23,6 +23,21 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: project-estimation-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
 
   db:
     image: postgres:15
