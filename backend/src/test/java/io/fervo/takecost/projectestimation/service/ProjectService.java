@@ -1,6 +1,5 @@
 package io.fervo.takecost.projectestimation.service;
 
-import io.fervo.takecost.projectestimation.dto.ProjectDTO;
 import io.fervo.takecost.projectestimation.model.Project;
 import io.fervo.takecost.projectestimation.repository.ProjectRepository;
 import org.junit.jupiter.api.Test;
