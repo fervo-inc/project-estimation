@@ -37,6 +37,8 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
+    "@tanstack/react-table": "latest",
+    "@types/jwt-decode": "^3.1.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -44,6 +46,7 @@
     "date-fns": "4.1.0",
     "embla-carousel-react": "8.5.1",
     "input-otp": "1.4.1",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.454.0",
     "next": "14.2.16",
     "next-themes": "latest",
@@ -57,8 +60,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",
-    "zod": "latest",
-    "@tanstack/react-table": "latest"
+    "zod": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

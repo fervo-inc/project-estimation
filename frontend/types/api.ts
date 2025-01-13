@@ -17,3 +17,23 @@ export type Material = {
   vendorId: number;
 }
 
+export type ProjectsSummary = {
+  totalProjects: number,
+  totalMaterialCost: number,
+  totalLaborCost: number,
+  averageCost: number
+}
+
+export type Project = {
+  id: number;
+  name: string;
+  description: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  laborCost: number;
+  materialCost: number;
+  totalCost: number;
+}
+

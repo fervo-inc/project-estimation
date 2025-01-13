@@ -109,3 +109,19 @@ The application utilizes the following tools and configurations:
 - Database credentials and other sensitive data are managed in the `.env` file.
 
 You can modify the ports and other configurations in the `compose.yaml` file as per your requirements.
+
+## TODO
+
+- [x] Frontend project - Basic layout done, working on doing the REST calls.
+  - [x] Login [/login](http://localhost:3000/login)
+  - [x] Dashboard
+  - [/] Projects
+  - [/] Materials
+  - [/] Materials Dashboard
+  - [/] Labor
+  - [/] Vendor
+  - [x] Settings (Just a demo)
+- [/] Unit tests - Had a setback when I enabled JWT auth, ended up removing the controller tests.
+- [/] CI/CD
+  - [/] Dockerfile and compose - Adding the frontend to the compose
+  - [/] GitHub Actions - Backend builds, fixing a path issue with the Dockerfile

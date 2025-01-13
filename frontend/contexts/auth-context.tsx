@@ -3,6 +3,7 @@
 import { createContext, useContext, ReactNode, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/auth'
+import { jwtDecode } from 'jwt-decode'
 
 type Role = 'ADMIN' | 'PROJECT_MANAGER' | 'TEAM_MEMBER'
 
@@ -14,15 +15,21 @@ interface AuthContextType {
   logout: () => void
 }
 
+interface DecodedToken {
+  role: Role
+  exp: number
+  [key: string]: any
+}
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ 
+export function AuthProvider({
   children,
-}: { 
+}: {
   children: ReactNode
 }) {
   const router = useRouter()
-  const [role, setRole] = useState<Role>('ADMIN')
+  const [role, setRole] = useState<Role>('TEAM_MEMBER')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const hasPermission = (requiredRoles: Role[]) => {
@@ -37,10 +44,15 @@ export function AuthProvider({
   }
 
   const updateAuthState = async (token: string) => {
-    await auth.setToken(token)
-    setIsAuthenticated(true)
-    // TODO: Decode JWT to get role
-    setRole('ADMIN') // Temporary default
+    try {
+      await auth.setToken(token)
+      const decodedToken: DecodedToken = jwtDecode(token)
+      setRole(decodedToken.role)
+      setIsAuthenticated(true)
+    } catch (error) {
+      console.error('Failed to decode token', error)
+      logout()
+    }
   }
 
   const logout = async () => {
