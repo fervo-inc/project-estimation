@@ -1,0 +1,4518 @@
+{
+	"info": {
+		"_postman_id": "df176ec4-1e0e-4775-ad43-30e9169549d3",
+		"name": "TakeCost Project Estimation API Copy",
+		"description": "API documentation for the Project Estimation Module of TakeCost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "136475"
+	},
+	"item": [
+		{
+			"name": "api/v1",
+			"item": [
+				{
+					"name": "vendors",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Get vendor by ID",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Retrieve a vendor by their unique ID"
+									},
+									"response": [
+										{
+											"name": "Vendor retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+										},
+										{
+											"name": "Vendor not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Update an existing vendor",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Modify the details of an existing vendor"
+									},
+									"response": [
+										{
+											"name": "Vendor updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+										},
+										{
+											"name": "Vendor not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete a vendor",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Remove a vendor from the system"
+									},
+									"response": [
+										{
+											"name": "Vendor deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Vendor not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/vendors/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"vendors",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "List all vendors",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/vendors?page=0&size=10&order=asc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								},
+								"description": "Fetch all vendors with optional pagination"
+							},
+							"response": [
+								{
+									"name": "Successfully retrieved list of vendors",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors?page=0&size=10&order=asc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "order",
+													"value": "asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<long>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"address\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<long>\",\n      \"email\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"address\": \"<string>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new vendor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/vendors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors"
+									]
+								},
+								"description": "Add a new vendor to the system"
+							},
+							"response": [
+								{
+									"name": "Vendor created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+								},
+								{
+									"name": "Invalid input data",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/vendors",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"vendors"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"address\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "projects",
+					"item": [
+						{
+							"name": "{projectId}",
+							"item": [
+								{
+									"name": "materials",
+									"item": [
+										{
+											"name": "{id}",
+											"item": [
+												{
+													"name": "Get project material by ID",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/2/materials/2",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																"2",
+																"materials",
+																"2"
+															]
+														},
+														"description": "Retrieve details of a specific project-material entry"
+													},
+													"response": [
+														{
+															"name": "Project material retrieved successfully",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+														},
+														{
+															"name": "Project material not found",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+														}
+													]
+												},
+												{
+													"name": "Update project material",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"materials",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														},
+														"description": "Modify the details of an existing project-material entry"
+													},
+													"response": [
+														{
+															"name": "Project material updated successfully",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}",
+																	"options": {
+																		"raw": {
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+														},
+														{
+															"name": "Project material not found",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}",
+																	"options": {
+																		"raw": {
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+														}
+													]
+												},
+												{
+													"name": "Remove material from project",
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/2/materials/203",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																"2",
+																"materials",
+																"203"
+															]
+														},
+														"description": "Delete a material linked to a project"
+													},
+													"response": [
+														{
+															"name": "Project material deleted successfully",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "text/plain"
+																}
+															],
+															"cookie": [],
+															"body": ""
+														},
+														{
+															"name": "Project material not found",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"materials",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "text/plain"
+																}
+															],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "List materials for a project",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/2/materials?page=0&size=10&order=asc",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														"2",
+														"materials"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "10"
+														},
+														{
+															"key": "order",
+															"value": "asc"
+														}
+													]
+												},
+												"description": "Fetch all materials linked to a project with optional pagination"
+											},
+											"response": [
+												{
+													"name": "Successfully retrieved list of project materials",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials?page=0&size=10&order=asc",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"materials"
+															],
+															"query": [
+																{
+																	"key": "page",
+																	"value": "0"
+																},
+																{
+																	"key": "size",
+																	"value": "10"
+																},
+																{
+																	"key": "order",
+																	"value": "asc"
+																}
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"materialId\": \"<long>\",\n      \"projectId\": \"<long>\",\n      \"id\": \"<long>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<number>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"materialId\": \"<long>\",\n      \"projectId\": \"<long>\",\n      \"id\": \"<long>\",\n      \"quantity\": \"<double>\",\n      \"unitPrice\": \"<number>\",\n      \"notes\": \"<string>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Add material to a project",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"materialId\": 34,\n  \"quantity\": 2,\n  \"unitPrice\": 10,\n  \"notes\": \"acme\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/2/materials",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														"2",
+														"materials"
+													]
+												},
+												"description": "Associate a material with a project"
+											},
+											"response": [
+												{
+													"name": "Project material created successfully",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"materials"
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+												},
+												{
+													"name": "Invalid input data",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/materials",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"materials"
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"materialId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"quantity\": \"<double>\",\n  \"unitPrice\": \"<number>\",\n  \"notes\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "labor",
+									"item": [
+										{
+											"name": "{id}",
+											"item": [
+												{
+													"name": "Get project labor by ID",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														},
+														"description": "Retrieve details of a specific project labor entry"
+													},
+													"response": [
+														{
+															"name": "Project labor retrieved successfully",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+														},
+														{
+															"name": "Project labor not found",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+														}
+													]
+												},
+												{
+													"name": "Update project labor",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														},
+														"description": "Modify the details of an existing project labor entry"
+													},
+													"response": [
+														{
+															"name": "Project labor updated successfully",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+																	"options": {
+																		"raw": {
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+														},
+														{
+															"name": "Project labor not found",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+																	"options": {
+																		"raw": {
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+														}
+													]
+												},
+												{
+													"name": "Remove labor from a project",
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														},
+														"description": "Delete a labor entry linked to a project"
+													},
+													"response": [
+														{
+															"name": "Project labor deleted successfully",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "text/plain"
+																}
+															],
+															"cookie": [],
+															"body": ""
+														},
+														{
+															"name": "Project labor not found",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [
+																	{
+																		"key": "Authorization",
+																		"value": "Bearer <token>",
+																		"description": "Added as a part of security scheme: bearer"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor/:id",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"projects",
+																		":projectId",
+																		"labor",
+																		":id"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "<long>",
+																			"description": "(Required) "
+																		}
+																	]
+																}
+															},
+															"status": "Not Found",
+															"code": 404,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "text/plain"
+																}
+															],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "List all labor for a project",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/2/labor?page=0&size=10&order=asc",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														"2",
+														"labor"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0"
+														},
+														{
+															"key": "size",
+															"value": "10"
+														},
+														{
+															"key": "order",
+															"value": "asc"
+														}
+													]
+												},
+												"description": "Fetch all labor entries linked to a project with optional pagination"
+											},
+											"response": [
+												{
+													"name": "Successfully retrieved list of project labor entries",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor?page=0&size=10&order=asc",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor"
+															],
+															"query": [
+																{
+																	"key": "page",
+																	"value": "0"
+																},
+																{
+																	"key": "size",
+																	"value": "10"
+																},
+																{
+																	"key": "order",
+																	"value": "asc"
+																}
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"laborCategoryId\": \"<long>\",\n      \"projectId\": \"<long>\",\n      \"id\": \"<long>\",\n      \"hourlyRate\": \"<double>\",\n      \"estimatedHours\": \"<double>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"laborCategoryId\": \"<long>\",\n      \"projectId\": \"<long>\",\n      \"id\": \"<long>\",\n      \"hourlyRate\": \"<double>\",\n      \"estimatedHours\": \"<double>\",\n      \"notes\": \"<string>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Add labor to a project",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":projectId",
+														"labor"
+													],
+													"variable": [
+														{
+															"key": "projectId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												},
+												"description": "Associate a labor category with a project"
+											},
+											"response": [
+												{
+													"name": "Project labor created successfully",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor"
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+												},
+												{
+													"name": "Invalid input data",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/projects/:projectId/labor",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"projects",
+																":projectId",
+																"labor"
+															],
+															"variable": [
+																{
+																	"key": "projectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"laborCategoryId\": \"<long>\",\n  \"projectId\": \"<long>\",\n  \"id\": \"<long>\",\n  \"hourlyRate\": \"<double>\",\n  \"estimatedHours\": \"<double>\",\n  \"notes\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Get project cost estimate",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/2/estimate",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												"2",
+												"estimate"
+											]
+										},
+										"description": "Calculate the cost estimate for a specific project"
+									},
+									"response": [
+										{
+											"name": "Cost estimate calculated successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:projectId/estimate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":projectId",
+														"estimate"
+													],
+													"variable": [
+														{
+															"key": "projectId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalMaterialCost\": \"<number>\",\n  \"totalLaborCost\": \"<number>\",\n  \"totalCost\": \"<number>\"\n}"
+										},
+										{
+											"name": "Project not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:projectId/estimate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":projectId",
+														"estimate"
+													],
+													"variable": [
+														{
+															"key": "projectId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalMaterialCost\": \"<number>\",\n  \"totalLaborCost\": \"<number>\",\n  \"totalCost\": \"<number>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Get project cost breakdown",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/2/cost-breakdown",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												"2",
+												"cost-breakdown"
+											]
+										},
+										"description": "Fetch a breakdown of costs between materials and labor for a specific project"
+									},
+									"response": [
+										{
+											"name": "Cost breakdown retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:projectId/cost-breakdown",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":projectId",
+														"cost-breakdown"
+													],
+													"variable": [
+														{
+															"key": "projectId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalMaterialCost\": \"<number>\",\n  \"totalLaborCost\": \"<number>\"\n}"
+										},
+										{
+											"name": "Project not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:projectId/cost-breakdown",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":projectId",
+														"cost-breakdown"
+													],
+													"variable": [
+														{
+															"key": "projectId",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalMaterialCost\": \"<number>\",\n  \"totalLaborCost\": \"<number>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Get project by ID",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Retrieve a project by its unique ID"
+									},
+									"response": [
+										{
+											"name": "Project retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										},
+										{
+											"name": "Project not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Update an existing project",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Modify the details of an existing project"
+									},
+									"response": [
+										{
+											"name": "Project updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										},
+										{
+											"name": "Project not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete a project",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Remove a project from the system"
+									},
+									"response": [
+										{
+											"name": "Project deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Project not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/projects/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"projects",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "List all projects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/projects?page=0&size=5&order=asc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "5"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								},
+								"description": "Fetch all projects with optional pagination"
+							},
+							"response": [
+								{
+									"name": "Successfully retrieved list of projects",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects?page=0&size=10&order=asc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "order",
+													"value": "asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"endDate\": \"<date>\",\n      \"location\": \"<string>\",\n      \"name\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"status\": \"PLANNED\",\n      \"id\": \"<long>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"endDate\": \"<date>\",\n      \"location\": \"<string>\",\n      \"name\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"status\": \"PLANNED\",\n      \"id\": \"<long>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new project",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Project {{$randomBsAdjective}} {{$randomColor}} {{$randomCatchPhraseNoun}}\",\n  \"description\": \"Project description\",\n  \"location\": \"{{$randomStreetAddress}}, {{$randomCity}}\",\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-12-31\",\n  \"status\": \"PLANNED\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/projects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects"
+									]
+								},
+								"description": "Add a new project to the system"
+							},
+							"response": [
+								{
+									"name": "Project created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+								},
+								{
+									"name": "Invalid input data",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"endDate\": \"<date>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"status\": \"PLANNED\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get upcoming projects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/projects/upcoming",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects",
+										"upcoming"
+									]
+								},
+								"description": "Fetch all projects with start dates in the future"
+							},
+							"response": [
+								{
+									"name": "Upcoming projects retrieved successfully",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/upcoming",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												"upcoming"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"location\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"location\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"status\": \"<string>\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get project summary",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/projects/summary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"projects",
+										"summary"
+									]
+								},
+								"description": "Fetch high-level metrics about all projects"
+							},
+							"response": [
+								{
+									"name": "Project summary retrieved successfully",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/projects/summary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"projects",
+												"summary"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalProjects\": \"<long>\",\n  \"totalMaterialCost\": \"<number>\",\n  \"totalLaborCost\": \"<number>\",\n  \"averageCost\": \"<number>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "materials",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Get material by ID",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Retrieve a material by its unique ID"
+									},
+									"response": [
+										{
+											"name": "Material retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+										},
+										{
+											"name": "Material not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Update an existing material",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Modify the details of an existing material"
+									},
+									"response": [
+										{
+											"name": "Material updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+										},
+										{
+											"name": "Material not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete a material",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Remove a material from the catalog"
+									},
+									"response": [
+										{
+											"name": "Material deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Material not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/materials/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"materials",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "List all materials",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/materials?page=0&size=10&order=asc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"materials"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								},
+								"description": "Fetch all materials with optional pagination"
+							},
+							"response": [
+								{
+									"name": "Successfully retrieved list of materials",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials?page=0&size=10&order=asc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "order",
+													"value": "asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"unitType\": \"<string>\",\n      \"id\": \"<long>\",\n      \"unitPrice\": \"<double>\",\n      \"vendorId\": \"<long>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"unitType\": \"<string>\",\n      \"id\": \"<long>\",\n      \"unitPrice\": \"<double>\",\n      \"vendorId\": \"<long>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new material",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"{{$randomColor}} {{$randomProductMaterial}} material\",\n  \"description\": \"Material description\",\n  \"category\": \"Category A\",\n  \"subCategory\": \"Sub-category A1\",\n  \"unitType\": \"kg\",\n  \"unitPrice\": {{$randomPrice}},\n  \"inStock\": {{$randomInt}},\n  \"leadTimeDays\": {{$randomPrice}},\n  \"vendorId\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/materials",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"materials"
+									]
+								},
+								"description": "Add a new material to the catalog"
+							},
+							"response": [
+								{
+									"name": "Material created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+								},
+								{
+									"name": "Invalid input data",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/materials",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"materials"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"category\": \"<string>\",\n  \"name\": \"<string>\",\n  \"unitType\": \"<string>\",\n  \"id\": \"<long>\",\n  \"unitPrice\": \"<double>\",\n  \"vendorId\": \"<long>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "labor-categories",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Get labor category by ID",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Retrieve a labor category by its unique ID"
+									},
+									"response": [
+										{
+											"name": "Labor category retrieved successfully",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										},
+										{
+											"name": "Labor category not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Update an existing labor category",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Modify the details of an existing labor category"
+									},
+									"response": [
+										{
+											"name": "Labor category updated successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										},
+										{
+											"name": "Labor category not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete a labor category",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Remove a labor category from the system"
+									},
+									"response": [
+										{
+											"name": "Labor category deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Labor category not found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/labor-categories/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"labor-categories",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<long>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "List all labor categories",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/labor-categories?page=0&size=10&order=asc",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"labor-categories"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										}
+									]
+								},
+								"description": "Fetch all labor categories with optional pagination"
+							},
+							"response": [
+								{
+									"name": "Successfully retrieved list of labor categories",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories?page=0&size=10&order=asc",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "order",
+													"value": "asc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"content\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<long>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<long>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"number\": \"<integer>\",\n  \"sort\": {\n    \"empty\": \"<boolean>\",\n    \"sorted\": \"<boolean>\",\n    \"unsorted\": \"<boolean>\"\n  },\n  \"first\": \"<boolean>\",\n  \"last\": \"<boolean>\",\n  \"numberOfElements\": \"<integer>\",\n  \"pageable\": {\n    \"offset\": \"<long>\",\n    \"sort\": {\n      \"empty\": \"<boolean>\",\n      \"sorted\": \"<boolean>\",\n      \"unsorted\": \"<boolean>\"\n    },\n    \"pageSize\": \"<integer>\",\n    \"pageNumber\": \"<integer>\",\n    \"paged\": \"<boolean>\",\n    \"unpaged\": \"<boolean>\"\n  },\n  \"empty\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a new labor category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Framer\",\n  \"description\": \"A Framer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/labor-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"labor-categories"
+									]
+								},
+								"description": "Add a new labor category to the system"
+							},
+							"response": [
+								{
+									"name": "Labor category created successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+								},
+								{
+									"name": "Invalid input data",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/labor-categories",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"labor-categories"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<long>\",\n  \"description\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save token in response into global variable\", function () {\r",
+									"    // Parse the response JSON body\r",
+									"    const responseBody = pm.response.json();\r",
+									"\r",
+									"    // Save the token in a global variable\r",
+									"    pm.globals.set(\"authToken\", responseBody.token);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Authenticate user and return a JWT token"
+					},
+					"response": [
+						{
+							"name": "JWT token generated successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Invalid username or password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"<string>\",\n  \"username\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
