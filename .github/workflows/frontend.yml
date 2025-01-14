@@ -1,0 +1,67 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'frontend/**'
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: bun install
+
+      - name: Build frontend application
+        working-directory: frontend
+        run: bun run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ !env.ACT }} # Do not upload artifacts when running locally using Act command-line
+        with:
+          name: frontend-build
+          path: |
+            frontend/.next
+            frontend/public
+            frontend/package.json
+
+      - name: Save build outputs locally when using Act command-line
+        if: ${{ env.ACT }}
+        run: |
+          mkdir -p local-artifacts/frontend
+          cp -r frontend/.next frontend/public frontend/package.json local-artifacts/frontend
+          echo "📁 Build outputs saved to: $(realpath local-artifacts/frontend)"
+
+  docker-frontend:
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/
+
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.CR_USERNAME }}
+          password: ${{ secrets.CR_PAT }}
+
+      - name: Build frontend Docker image
+        run: docker build -t ghcr.io/project/frontend:latest -f frontend/Dockerfile frontend/
+
+      - name: Push frontend Docker image
+        run: docker push ghcr.io/project/frontend:latest

@@ -85,6 +85,8 @@ UI**](http://localhost:8080/swagger-ui/index.html):
 
 Or you can use this Token, just add it as a request header.
 
+**Admin JWT Token**
+
 ```plaintext
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJUYWtlQ29zdCIsInN1YiI6ImFkbWluIiwiYXVkIjpbIlRha2VDb3N0Q2xpZW50Il0sImlhdCI6MTczNjc0ODk4NCwibmJmIjoxNzM2NzQ4OTg0LCJleHAiOjE3MzczNTM3ODQsImp0aSI6ImRkODhmNjU3LTYwYTAtNDNhZi04NjlhLTYzMzA2NTQ3ZmRmZSIsInJvbGVzIjpbIkFETUlOIl19.vtsa-DbX1yGc7M-h1lrAXKOcf09vByXV2-4qS7lFE7qsXOSnypKDdldU0kEWK_VNqmbkzX-hZp-kLqRp7zKYHA
 ```
@@ -110,18 +112,23 @@ The application utilizes the following tools and configurations:
 
 You can modify the ports and other configurations in the `compose.yaml` file as per your requirements.
 
+## Running GitHub Actions Locally
+
+If you'd like to run and test GitHub Actions workflows locally, refer to the *
+*[Local Workflow Setup Guide](LOCAL_WORKFLOW_README.md)** for detailed instructions.
+
 ## TODO
 
 - [x] Frontend project - Basic layout done, working on doing the REST calls.
-  - [x] Login [/login](http://localhost:3000/login)
-  - [x] Dashboard
-  - [/] Projects
-  - [/] Materials
-  - [/] Materials Dashboard
-  - [/] Labor
-  - [/] Vendor
-  - [x] Settings (Just a demo)
+    - [x] Login [/login](http://localhost:3000/login)
+    - [x] Dashboard
+    - [/] Projects
+    - [/] Materials
+    - [/] Materials Dashboard
+    - [/] Labor
+    - [/] Vendor
+    - [x] Settings (Just a demo)
 - [/] Unit tests - Had a setback when I enabled JWT auth, ended up removing the controller tests.
 - [/] CI/CD
-  - [/] Dockerfile and compose - Adding the frontend to the compose
-  - [/] GitHub Actions - Backend builds, fixing a path issue with the Dockerfile
+    - [/] Dockerfile and compose - Adding the frontend to the compose
+    - [/] GitHub Actions - Backend builds, fixing a path issue with the Dockerfile

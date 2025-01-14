@@ -16,6 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+local-artifacts/**
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,4 +37,8 @@ out/
 ### VS Code ###
 .vscode/
 
-.env
+### Secrets ###
+.env*
+!.env.example
+.secrets
+!.secrets.example
