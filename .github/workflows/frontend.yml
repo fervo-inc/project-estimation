@@ -61,7 +61,7 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: Build frontend Docker image
-        run: docker build -t ghcr.io/project/frontend:latest -f frontend/Dockerfile frontend/
+        run: docker build -t ghcr.io/fervo-inc/project-estimation-frontend:latest -f frontend/Dockerfile frontend/
 
       - name: Push frontend Docker image
-        run: docker push ghcr.io/project/frontend:latest
+        run: docker push ghcr.io/fervo-inc/project-estimation-frontend:latest
