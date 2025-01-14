@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
 import { LogOut, User, Palette } from 'lucide-react'
 import Link from 'next/link'
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,9 +12,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useAuth } from "@/contexts/auth-context"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { useAuth } from '@/contexts/auth-context'
 
 export function UserNav() {
   const { logout } = useAuth()
@@ -59,4 +59,3 @@ export function UserNav() {
     </DropdownMenu>
   )
 }
-

@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,28 +11,21 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+  useReactTable
+} from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from '@/components/ui/use-toast'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,34 +34,30 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { useAuth } from "@/contexts/auth-context"
-import { fetchWithAuth } from "@/lib/api"
-import { LaborCategory } from "@/types/api"
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog'
+import { useAuth } from '@/contexts/auth-context'
+import { fetchWithAuth } from '@/lib/api'
+import { LaborCategory } from '@/types/api'
 
 const columns: ColumnDef<LaborCategory>[] = [
   {
-    accessorKey: "name",
-    header: "Category Name",
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
+    accessorKey: 'name',
+    header: 'Category Name',
+    cell: ({ row }) => <div>{row.getValue('name')}</div>
   },
   {
-    accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => <div>{row.getValue("description")}</div>,
+    accessorKey: 'description',
+    header: 'Description',
+    cell: ({ row }) => <div>{row.getValue('description')}</div>
   },
   {
-    accessorKey: "hourlyRate",
-    header: "Hourly Rate",
-    cell: ({ row }) => (
-      <div className="font-medium">
-        ${Number(row.getValue("hourlyRate")).toFixed(2)}
-      </div>
-    ),
+    accessorKey: 'hourlyRate',
+    header: 'Hourly Rate',
+    cell: ({ row }) => <div className="font-medium">${Number(row.getValue('hourlyRate')).toFixed(2)}</div>
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const labor = row.original
       const { hasPermission } = useAuth()
@@ -87,10 +76,7 @@ const columns: ColumnDef<LaborCategory>[] = [
                 Edit
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                className="text-destructive"
-                onSelect={() => {}}
-              >
+              <DropdownMenuItem className="text-destructive" onSelect={() => {}}>
                 <Trash2 className="mr-2 h-4 w-4" />
                 Delete
               </DropdownMenuItem>
@@ -98,8 +84,8 @@ const columns: ColumnDef<LaborCategory>[] = [
           </DropdownMenu>
         )
       )
-    },
-  },
+    }
+  }
 ]
 
 export function LaborTable() {
@@ -111,7 +97,7 @@ export function LaborTable() {
   const [rowSelection, setRowSelection] = useState({})
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [selectedLaborId, setSelectedLaborId] = useState<number | null>(null)
-  
+
   const { toast } = useToast()
 
   useEffect(() => {
@@ -124,9 +110,9 @@ export function LaborTable() {
       setData(data)
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to fetch labor categories",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to fetch labor categories',
+        variant: 'destructive'
       })
     } finally {
       setLoading(false)
@@ -136,18 +122,18 @@ export function LaborTable() {
   const handleDelete = async (id: number) => {
     try {
       await fetchWithAuth(`/labor-categories/${id}`, {
-        method: 'DELETE',
+        method: 'DELETE'
       })
-      setData(prev => prev.filter(labor => labor.id !== id))
+      setData((prev) => prev.filter((labor) => labor.id !== id))
       toast({
-        title: "Success",
-        description: "Labor category deleted successfully",
+        title: 'Success',
+        description: 'Labor category deleted successfully'
       })
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete labor category",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete labor category',
+        variant: 'destructive'
       })
     }
   }
@@ -167,8 +153,8 @@ export function LaborTable() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
-    },
+      rowSelection
+    }
   })
 
   if (loading) {
@@ -180,10 +166,8 @@ export function LaborTable() {
       <div className="flex items-center gap-2">
         <Input
           placeholder="Filter labor categories..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>
@@ -195,12 +179,7 @@ export function LaborTable() {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
                 })}
@@ -210,26 +189,15 @@ export function LaborTable() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No labor categories found.
                 </TableCell>
               </TableRow>
@@ -239,8 +207,8 @@ export function LaborTable() {
       </div>
       <div className="flex items-center justify-end space-x-2">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          selected.
         </div>
         <div className="space-x-2">
           <Button
@@ -251,12 +219,7 @@ export function LaborTable() {
           >
             Previous
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
+          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             Next
           </Button>
         </div>
@@ -267,8 +230,7 @@ export function LaborTable() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              labor category.
+              This action cannot be undone. This will permanently delete the labor category.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -290,4 +252,3 @@ export function LaborTable() {
     </div>
   )
 }
-

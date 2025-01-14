@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { useState } from 'react'
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 import { Building2, CircleDollarSign, TrendingUp, Users } from 'lucide-react'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ProjectsSummary } from "@/types/api"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ProjectsSummary } from '@/types/api'
 
 const mockSummary: ProjectsSummary = {
   totalProjects: 12,
@@ -16,29 +16,29 @@ const mockSummary: ProjectsSummary = {
 
 const mockChartData = [
   {
-    name: "Jan",
-    total: 2500,
+    name: 'Jan',
+    total: 2500
   },
   {
-    name: "Feb",
-    total: 3500,
+    name: 'Feb',
+    total: 3500
   },
   {
-    name: "Mar",
-    total: 4500,
+    name: 'Mar',
+    total: 4500
   },
   {
-    name: "Apr",
-    total: 2780,
+    name: 'Apr',
+    total: 2780
   },
   {
-    name: "May",
-    total: 1890,
+    name: 'May',
+    total: 1890
   },
   {
-    name: "Jun",
-    total: 2390,
-  },
+    name: 'Jun',
+    total: 2390
+  }
 ]
 
 export default function DashboardPage() {
@@ -64,9 +64,7 @@ export default function DashboardPage() {
             <CircleDollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${summary.totalMaterialCost.toLocaleString()}
-            </div>
+            <div className="text-2xl font-bold">${summary.totalMaterialCost.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Total material expenses</p>
           </CardContent>
         </Card>
@@ -76,9 +74,7 @@ export default function DashboardPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${summary.totalLaborCost.toLocaleString()}
-            </div>
+            <div className="text-2xl font-bold">${summary.totalLaborCost.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Total labor expenses</p>
           </CardContent>
         </Card>
@@ -88,9 +84,7 @@ export default function DashboardPage() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${summary.averageCost.toLocaleString()}
-            </div>
+            <div className="text-2xl font-bold">${summary.averageCost.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">Per project average</p>
           </CardContent>
         </Card>
@@ -98,20 +92,12 @@ export default function DashboardPage() {
       <Card className="col-span-4">
         <CardHeader>
           <CardTitle>Cost Overview</CardTitle>
-          <CardDescription>
-            Monthly project costs for the current year
-          </CardDescription>
+          <CardDescription>Monthly project costs for the current year</CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={mockChartData}>
-              <XAxis
-                dataKey="name"
-                stroke="#888888"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
+              <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
               <YAxis
                 stroke="#888888"
                 fontSize={12}
@@ -127,4 +113,3 @@ export default function DashboardPage() {
     </div>
   )
 }
-

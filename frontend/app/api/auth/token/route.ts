@@ -5,7 +5,7 @@ const COOKIE_NAME = 'auth_token'
 
 export async function POST(request: Request) {
   const { token } = await request.json()
-  
+
   // Set HTTP-only cookie
   cookies().set({
     name: COOKIE_NAME,
@@ -24,7 +24,6 @@ export async function POST(request: Request) {
 export async function DELETE() {
   // Delete the cookie
   cookies().delete(COOKIE_NAME)
-  
+
   return new NextResponse('Token deleted', { status: 200 })
 }
-

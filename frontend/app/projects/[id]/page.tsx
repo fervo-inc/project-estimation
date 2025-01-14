@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
-import { PieChart, Pie, ResponsiveContainer, Cell, Legend, Tooltip } from "recharts"
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { PieChart, Pie, ResponsiveContainer, Cell, Legend, Tooltip } from 'recharts'
 import { CircleDollarSign, Users, Warehouse } from 'lucide-react'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { fetchWithAuth } from "@/lib/api"
-import { useToast } from "@/components/ui/use-toast"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { fetchWithAuth } from '@/lib/api'
+import { useToast } from '@/components/ui/use-toast'
 
 interface ProjectEstimate {
   totalMaterialCost: number
@@ -55,14 +55,14 @@ export default function ProjectDashboard() {
           fetchWithAuth(`/projects/${id}/estimate`),
           fetchWithAuth(`/projects/${id}/cost-breakdown`)
         ])
-        
+
         setEstimate(estimateData)
         setCostBreakdown(breakdownData)
       } catch (error) {
         toast({
-          title: "Error",
-          description: "Failed to fetch project data",
-          variant: "destructive",
+          title: 'Error',
+          description: 'Failed to fetch project data',
+          variant: 'destructive'
         })
       } finally {
         setIsLoading(false)
@@ -90,7 +90,7 @@ export default function ProjectDashboard() {
 
   const chartData = [
     { name: 'Material Costs', value: costBreakdown.totalMaterialCost },
-    { name: 'Labor Costs', value: costBreakdown.totalLaborCost },
+    { name: 'Labor Costs', value: costBreakdown.totalLaborCost }
   ]
 
   const COLORS = ['#22c55e', '#3b82f6']
@@ -108,12 +108,8 @@ export default function ProjectDashboard() {
             <Warehouse className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${estimate.totalMaterialCost.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Total material expenses for this project
-            </p>
+            <div className="text-2xl font-bold">${estimate.totalMaterialCost.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">Total material expenses for this project</p>
           </CardContent>
         </Card>
         <Card>
@@ -122,12 +118,8 @@ export default function ProjectDashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${estimate.totalLaborCost.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Total labor expenses for this project
-            </p>
+            <div className="text-2xl font-bold">${estimate.totalLaborCost.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">Total labor expenses for this project</p>
           </CardContent>
         </Card>
         <Card>
@@ -136,12 +128,8 @@ export default function ProjectDashboard() {
             <CircleDollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              ${estimate.totalCost.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Combined total of material and labor costs
-            </p>
+            <div className="text-2xl font-bold">${estimate.totalCost.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">Combined total of material and labor costs</p>
           </CardContent>
         </Card>
       </div>
@@ -168,9 +156,7 @@ export default function ProjectDashboard() {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  formatter={(value: number) => `$${value.toLocaleString()}`}
-                />
+                <Tooltip formatter={(value: number) => `$${value.toLocaleString()}`} />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
@@ -180,4 +166,3 @@ export default function ProjectDashboard() {
     </div>
   )
 }
-

@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import { Plus } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { VendorsTable } from "@/components/vendors/vendors-table"
-import { AddVendorDialog } from "@/components/vendors/add-vendor-dialog"
-import { useAuth } from "@/contexts/auth-context"
+import { Button } from '@/components/ui/button'
+import { VendorsTable } from '@/components/vendors/vendors-table'
+import { AddVendorDialog } from '@/components/vendors/add-vendor-dialog'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function VendorsPage() {
   const { hasPermission } = useAuth()
@@ -24,11 +24,7 @@ export default function VendorsPage() {
         )}
       </div>
       <VendorsTable />
-      <AddVendorDialog 
-        open={isAddDialogOpen} 
-        onOpenChange={setIsAddDialogOpen}
-      />
+      <AddVendorDialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen} />
     </div>
   )
 }
-

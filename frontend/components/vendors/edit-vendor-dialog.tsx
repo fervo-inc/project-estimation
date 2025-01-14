@@ -1,44 +1,37 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
-import { fetchWithAuth } from "@/lib/api"
+  DialogTitle
+} from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+import { fetchWithAuth } from '@/lib/api'
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.'
   }),
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: 'Please enter a valid email address.'
   }),
   phone: z.string().min(10, {
-    message: "Please enter a valid phone number.",
+    message: 'Please enter a valid phone number.'
   }),
   address: z.string().min(5, {
-    message: "Address must be at least 5 characters.",
-  }),
+    message: 'Address must be at least 5 characters.'
+  })
 })
 
 interface Vendor {
@@ -56,23 +49,18 @@ type EditVendorDialogProps = {
   onSuccess?: () => void
 }
 
-export function EditVendorDialog({ 
-  open, 
-  onOpenChange, 
-  vendor,
-  onSuccess 
-}: EditVendorDialogProps) {
+export function EditVendorDialog({ open, onOpenChange, vendor, onSuccess }: EditVendorDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: vendor?.name ?? "",
-      email: vendor?.email ?? "",
-      phone: vendor?.phone ?? "",
-      address: vendor?.address ?? "",
-    },
+      name: vendor?.name ?? '',
+      email: vendor?.email ?? '',
+      phone: vendor?.phone ?? '',
+      address: vendor?.address ?? ''
+    }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -82,22 +70,22 @@ export function EditVendorDialog({
     try {
       await fetchWithAuth(`/vendors/${vendor.id}`, {
         method: 'PUT',
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       })
-      
+
       toast({
-        title: "Success",
-        description: "Vendor updated successfully",
+        title: 'Success',
+        description: 'Vendor updated successfully'
       })
-      
+
       onOpenChange(false)
       form.reset()
       onSuccess?.()
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update vendor",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update vendor',
+        variant: 'destructive'
       })
     } finally {
       setIsLoading(false)
@@ -109,9 +97,7 @@ export function EditVendorDialog({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Vendor</DialogTitle>
-          <DialogDescription>
-            Update vendor information. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Update vendor information. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -169,7 +155,7 @@ export function EditVendorDialog({
             />
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save Changes"}
+                {isLoading ? 'Saving...' : 'Save Changes'}
               </Button>
             </DialogFooter>
           </form>
@@ -178,4 +164,3 @@ export function EditVendorDialog({
     </Dialog>
   )
 }
-

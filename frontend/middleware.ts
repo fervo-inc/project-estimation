@@ -4,24 +4,14 @@ import type { NextRequest } from 'next/server'
 const COOKIE_NAME = 'auth_token'
 
 // Define protected routes
-const protectedRoutes = [
-  '/dashboard',
-  '/projects',
-  '/materials',
-  '/vendors',
-  '/labor',
-  '/estimates',
-  '/settings',
-]
+const protectedRoutes = ['/dashboard', '/projects', '/materials', '/vendors', '/labor', '/estimates', '/settings']
 
 export function middleware(request: NextRequest) {
   // Get the pathname of the request
   const { pathname } = request.nextUrl
 
   // Check if the pathname is a protected route
-  const isProtectedRoute = protectedRoutes.some(route =>
-    pathname.startsWith(route)
-  )
+  const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route))
 
   if (isProtectedRoute) {
     // Get the token from the HTTP-only cookie
@@ -47,7 +37,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+    '/((?!api|_next/static|_next/image|favicon.ico).*)'
+  ]
 }
-

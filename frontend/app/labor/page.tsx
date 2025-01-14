@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import { Plus } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { LaborTable } from "@/components/labor/labor-table"
-import { AddLaborDialog } from "@/components/labor/add-labor-dialog"
-import { useAuth } from "@/contexts/auth-context"
+import { Button } from '@/components/ui/button'
+import { LaborTable } from '@/components/labor/labor-table'
+import { AddLaborDialog } from '@/components/labor/add-labor-dialog'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function LaborPage() {
   const { hasPermission } = useAuth()
@@ -25,12 +25,11 @@ export default function LaborPage() {
         )}
       </div>
       <LaborTable key={key} />
-      <AddLaborDialog 
-        open={isAddDialogOpen} 
+      <AddLaborDialog
+        open={isAddDialogOpen}
         onOpenChange={setIsAddDialogOpen}
-        onSuccess={() => setKey(prev => prev + 1)}
+        onSuccess={() => setKey((prev) => prev + 1)}
       />
     </div>
   )
 }
-

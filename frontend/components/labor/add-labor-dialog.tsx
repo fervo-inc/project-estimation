@@ -1,42 +1,35 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
-import { fetchWithAuth } from "@/lib/api"
+  DialogTitle
+} from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { useToast } from '@/components/ui/use-toast'
+import { fetchWithAuth } from '@/lib/api'
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.'
   }),
   description: z.string().min(10, {
-    message: "Description must be at least 10 characters.",
+    message: 'Description must be at least 10 characters.'
   }),
   hourlyRate: z.number().positive({
-    message: "Hourly rate must be positive.",
-  }),
+    message: 'Hourly rate must be positive.'
+  })
 })
 
 type AddLaborDialogProps = {
@@ -52,10 +45,10 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      hourlyRate: 0,
-    },
+      name: '',
+      description: '',
+      hourlyRate: 0
+    }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -63,22 +56,22 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
     try {
       await fetchWithAuth('/labor-categories', {
         method: 'POST',
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       })
-      
+
       toast({
-        title: "Success",
-        description: "Labor category added successfully",
+        title: 'Success',
+        description: 'Labor category added successfully'
       })
-      
+
       onOpenChange(false)
       form.reset()
       onSuccess?.()
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to add labor category",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to add labor category',
+        variant: 'destructive'
       })
     } finally {
       setIsLoading(false)
@@ -90,9 +83,7 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Labor Category</DialogTitle>
-          <DialogDescription>
-            Add a new labor category to the system. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Add a new labor category to the system. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -116,7 +107,7 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Describe the labor category and its responsibilities"
                       className="min-h-[100px]"
                       {...field}
@@ -151,7 +142,7 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
             />
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Adding..." : "Add Labor Category"}
+                {isLoading ? 'Adding...' : 'Add Labor Category'}
               </Button>
             </DialogFooter>
           </form>
@@ -160,4 +151,3 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
     </Dialog>
   )
 }
-

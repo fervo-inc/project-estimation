@@ -30,47 +30,54 @@ To run this application, you need:
 The application relies on environment variables for configuration. To set up your environment:
 
 1. Copy the `.env.example` file to `.env.local`:
+
    ```bash
    cp .env.example .env.local
    ```
 
    The default URL in the `.env.example` is already set to work with the local backend configuration:
-   ```
+
+   ```.env
    NEXT_PUBLIC_API_URL=http://127.0.0.1:8080
    ```
 
 ## Running the Project Using npm
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/fervo-inc/project-estimation
    cd project-estimation/frontend
    ```
 
 2. Install the project dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
 
-   The application will be available at [`http://localhost:3000`](http://localhost:3000).
+   The application will be available at [`localhost:3000`](http://localhost:3000).
 
-Make sure to have the backend running @ http://localhost:8080.
+Make sure to have the backend running @ [`localhost:8080`](http://localhost:8080).
 
 ## Building and Deployment
 
 To build and serve the production version of the application:
 
 1. Build the production-ready app:
+
    ```bash
    npm run build
    ```
 
 2. Start the production server:
+
    ```bash
    npm run start
    ```

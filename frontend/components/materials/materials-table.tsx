@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
+import { useState, useMemo } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,27 +11,20 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+  useReactTable
+} from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,38 +33,38 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Material } from "@/types/api"
-import { useAuth } from "@/contexts/auth-context"
-import { EditMaterialDialog } from "./edit-material-dialog"
-import { useToast } from "@/components/ui/use-toast"
-import { fetchWithAuth } from "@/lib/api"
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog'
+import { Material } from '@/types/api'
+import { useAuth } from '@/contexts/auth-context'
+import { EditMaterialDialog } from './edit-material-dialog'
+import { useToast } from '@/components/ui/use-toast'
+import { fetchWithAuth } from '@/lib/api'
 
 // Mock data - replace with API call
 const mockData: Material[] = [
   {
     id: 1,
-    name: "Concrete Mix",
-    category: "Building Materials",
-    subCategory: "Concrete",
-    unitType: "Bag",
+    name: 'Concrete Mix',
+    category: 'Building Materials',
+    subCategory: 'Concrete',
+    unitType: 'Bag',
     unitPrice: 15.99,
     inStock: 500,
     leadTimeDays: 3,
-    vendorId: 1,
+    vendorId: 1
   },
   {
     id: 2,
-    name: "Steel Rebar",
-    category: "Building Materials",
-    subCategory: "Steel",
-    unitType: "Piece",
-    unitPrice: 25.50,
+    name: 'Steel Rebar',
+    category: 'Building Materials',
+    subCategory: 'Steel',
+    unitType: 'Piece',
+    unitPrice: 25.5,
     inStock: 200,
     leadTimeDays: 5,
-    vendorId: 2,
-  },
+    vendorId: 2
+  }
 ]
 
 export function MaterialsTable() {
@@ -88,61 +81,57 @@ export function MaterialsTable() {
   const handleDelete = async (id: number) => {
     try {
       await fetchWithAuth(`/materials/${id}`, {
-        method: 'DELETE',
+        method: 'DELETE'
       })
-      
+
       toast({
-        title: "Success",
-        description: "Material deleted successfully",
+        title: 'Success',
+        description: 'Material deleted successfully'
       })
-      
+
       // TODO: Implement refresh logic when API is connected
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete material",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete material',
+        variant: 'destructive'
       })
     }
   }
 
   const columns: ColumnDef<Material>[] = [
     {
-      accessorKey: "name",
-      header: "Name",
-      cell: ({ row }) => <div>{row.getValue("name")}</div>,
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => <div>{row.getValue('name')}</div>
     },
     {
-      accessorKey: "category",
-      header: "Category",
-      cell: ({ row }) => <div>{row.getValue("category")}</div>,
+      accessorKey: 'category',
+      header: 'Category',
+      cell: ({ row }) => <div>{row.getValue('category')}</div>
     },
     {
-      accessorKey: "unitType",
-      header: "Unit",
-      cell: ({ row }) => <div>{row.getValue("unitType")}</div>,
+      accessorKey: 'unitType',
+      header: 'Unit',
+      cell: ({ row }) => <div>{row.getValue('unitType')}</div>
     },
     {
-      accessorKey: "unitPrice",
-      header: "Unit Price",
-      cell: ({ row }) => (
-        <div className="font-medium">
-          ${Number(row.getValue("unitPrice")).toFixed(2)}
-        </div>
-      ),
+      accessorKey: 'unitPrice',
+      header: 'Unit Price',
+      cell: ({ row }) => <div className="font-medium">${Number(row.getValue('unitPrice')).toFixed(2)}</div>
     },
     {
-      accessorKey: "inStock",
-      header: "In Stock",
-      cell: ({ row }) => <div>{row.getValue("inStock")}</div>,
+      accessorKey: 'inStock',
+      header: 'In Stock',
+      cell: ({ row }) => <div>{row.getValue('inStock')}</div>
     },
     {
-      accessorKey: "leadTimeDays",
-      header: "Lead Time (Days)",
-      cell: ({ row }) => <div>{row.getValue("leadTimeDays")}</div>,
+      accessorKey: 'leadTimeDays',
+      header: 'Lead Time (Days)',
+      cell: ({ row }) => <div>{row.getValue('leadTimeDays')}</div>
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const material = row.original
 
@@ -155,14 +144,16 @@ export function MaterialsTable() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => {
-                  setEditingMaterial(material)
-                }}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setEditingMaterial(material)
+                  }}
+                >
                   <Edit2 className="mr-2 h-4 w-4" />
                   Edit
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="text-destructive"
                   onClick={() => {
                     setSelectedMaterialId(material.id)
@@ -176,8 +167,8 @@ export function MaterialsTable() {
             </DropdownMenu>
           )
         )
-      },
-    },
+      }
+    }
   ]
 
   const table = useReactTable({
@@ -195,8 +186,8 @@ export function MaterialsTable() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
-    },
+      rowSelection
+    }
   })
 
   return (
@@ -204,10 +195,8 @@ export function MaterialsTable() {
       <div className="flex items-center gap-2">
         <Input
           placeholder="Filter materials..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>
@@ -219,12 +208,7 @@ export function MaterialsTable() {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
                 })}
@@ -234,26 +218,15 @@ export function MaterialsTable() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No materials found.
                 </TableCell>
               </TableRow>
@@ -263,8 +236,8 @@ export function MaterialsTable() {
       </div>
       <div className="flex items-center justify-end space-x-2">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          selected.
         </div>
         <div className="space-x-2">
           <Button
@@ -275,12 +248,7 @@ export function MaterialsTable() {
           >
             Previous
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
+          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             Next
           </Button>
         </div>
@@ -303,8 +271,7 @@ export function MaterialsTable() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              material.
+              This action cannot be undone. This will permanently delete the material.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -326,4 +293,3 @@ export function MaterialsTable() {
     </div>
   )
 }
-

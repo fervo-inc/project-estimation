@@ -1,50 +1,43 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Material } from "@/types/api"
+  DialogTitle
+} from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Material } from '@/types/api'
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.'
   }),
   category: z.string().min(2, {
-    message: "Category must be at least 2 characters.",
+    message: 'Category must be at least 2 characters.'
   }),
   subCategory: z.string().optional(),
   unitType: z.string().min(1, {
-    message: "Unit type is required.",
+    message: 'Unit type is required.'
   }),
   unitPrice: z.number().positive({
-    message: "Unit price must be positive.",
+    message: 'Unit price must be positive.'
   }),
   inStock: z.number().int().nonnegative({
-    message: "Stock must be zero or positive.",
+    message: 'Stock must be zero or positive.'
   }),
   leadTimeDays: z.number().int().nonnegative({
-    message: "Lead time must be zero or positive.",
-  }),
+    message: 'Lead time must be zero or positive.'
+  })
 })
 
 type AddMaterialDialogProps = {
@@ -58,14 +51,14 @@ export function AddMaterialDialog({ open, onOpenChange }: AddMaterialDialogProps
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      category: "",
-      subCategory: "",
-      unitType: "",
+      name: '',
+      category: '',
+      subCategory: '',
+      unitType: '',
       unitPrice: 0,
       inStock: 0,
-      leadTimeDays: 0,
-    },
+      leadTimeDays: 0
+    }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -76,7 +69,7 @@ export function AddMaterialDialog({ open, onOpenChange }: AddMaterialDialogProps
       onOpenChange(false)
       form.reset()
     } catch (error) {
-      console.error("Failed to add material:", error)
+      console.error('Failed to add material:', error)
     } finally {
       setIsLoading(false)
     }
@@ -87,9 +80,7 @@ export function AddMaterialDialog({ open, onOpenChange }: AddMaterialDialogProps
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Material</DialogTitle>
-          <DialogDescription>
-            Add a new material to the catalog. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Add a new material to the catalog. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -214,7 +205,7 @@ export function AddMaterialDialog({ open, onOpenChange }: AddMaterialDialogProps
             />
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Adding..." : "Add Material"}
+                {isLoading ? 'Adding...' : 'Add Material'}
               </Button>
             </DialogFooter>
           </form>
@@ -223,4 +214,3 @@ export function AddMaterialDialog({ open, onOpenChange }: AddMaterialDialogProps
     </Dialog>
   )
 }
-

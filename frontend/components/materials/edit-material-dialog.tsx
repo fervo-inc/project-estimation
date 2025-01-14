@@ -1,52 +1,45 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
-import { Material } from "@/types/api"
-import { fetchWithAuth } from "@/lib/api"
+  DialogTitle
+} from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+import { Material } from '@/types/api'
+import { fetchWithAuth } from '@/lib/api'
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: 'Name must be at least 2 characters.'
   }),
   category: z.string().min(2, {
-    message: "Category must be at least 2 characters.",
+    message: 'Category must be at least 2 characters.'
   }),
   subCategory: z.string().optional(),
   unitType: z.string().min(1, {
-    message: "Unit type is required.",
+    message: 'Unit type is required.'
   }),
   unitPrice: z.number().positive({
-    message: "Unit price must be positive.",
+    message: 'Unit price must be positive.'
   }),
   inStock: z.number().int().nonnegative({
-    message: "Stock must be zero or positive.",
+    message: 'Stock must be zero or positive.'
   }),
   leadTimeDays: z.number().int().nonnegative({
-    message: "Lead time must be zero or positive.",
-  }),
+    message: 'Lead time must be zero or positive.'
+  })
 })
 
 type EditMaterialDialogProps = {
@@ -56,26 +49,21 @@ type EditMaterialDialogProps = {
   onSuccess?: () => void
 }
 
-export function EditMaterialDialog({ 
-  open, 
-  onOpenChange, 
-  material,
-  onSuccess 
-}: EditMaterialDialogProps) {
+export function EditMaterialDialog({ open, onOpenChange, material, onSuccess }: EditMaterialDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: material?.name ?? "",
-      category: material?.category ?? "",
-      subCategory: material?.subCategory ?? "",
-      unitType: material?.unitType ?? "",
+      name: material?.name ?? '',
+      category: material?.category ?? '',
+      subCategory: material?.subCategory ?? '',
+      unitType: material?.unitType ?? '',
       unitPrice: material?.unitPrice ?? 0,
       inStock: material?.inStock ?? 0,
-      leadTimeDays: material?.leadTimeDays ?? 0,
-    },
+      leadTimeDays: material?.leadTimeDays ?? 0
+    }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -85,22 +73,22 @@ export function EditMaterialDialog({
     try {
       await fetchWithAuth(`/materials/${material.id}`, {
         method: 'PUT',
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       })
-      
+
       toast({
-        title: "Success",
-        description: "Material updated successfully",
+        title: 'Success',
+        description: 'Material updated successfully'
       })
-      
+
       onOpenChange(false)
       form.reset()
       onSuccess?.()
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update material",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update material',
+        variant: 'destructive'
       })
     } finally {
       setIsLoading(false)
@@ -112,9 +100,7 @@ export function EditMaterialDialog({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Material</DialogTitle>
-          <DialogDescription>
-            Update material information. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Update material information. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -239,7 +225,7 @@ export function EditMaterialDialog({
             />
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save Changes"}
+                {isLoading ? 'Saving...' : 'Save Changes'}
               </Button>
             </DialogFooter>
           </form>
@@ -248,4 +234,3 @@ export function EditMaterialDialog({
     </Dialog>
   )
 }
-

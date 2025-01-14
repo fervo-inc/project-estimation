@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,27 +11,20 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+  useReactTable
+} from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,12 +33,12 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/contexts/auth-context"
-import { EditVendorDialog } from "./edit-vendor-dialog"
-import { fetchWithAuth } from "@/lib/api"
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog'
+import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/contexts/auth-context'
+import { EditVendorDialog } from './edit-vendor-dialog'
+import { fetchWithAuth } from '@/lib/api'
 
 interface Vendor {
   id: number
@@ -59,18 +52,18 @@ interface Vendor {
 const mockData: Vendor[] = [
   {
     id: 1,
-    name: "ABC Construction Supplies",
-    email: "sales@abcsupplies.com",
-    phone: "(555) 123-4567",
-    address: "123 Builder St, Construction City, CC 12345",
+    name: 'ABC Construction Supplies',
+    email: 'sales@abcsupplies.com',
+    phone: '(555) 123-4567',
+    address: '123 Builder St, Construction City, CC 12345'
   },
   {
     id: 2,
-    name: "XYZ Materials Co",
-    email: "contact@xyzmaterials.com",
-    phone: "(555) 987-6543",
-    address: "456 Material Ave, Supply Town, ST 67890",
-  },
+    name: 'XYZ Materials Co',
+    email: 'contact@xyzmaterials.com',
+    phone: '(555) 987-6543',
+    address: '456 Material Ave, Supply Town, ST 67890'
+  }
 ]
 
 export function VendorsTable() {
@@ -87,47 +80,47 @@ export function VendorsTable() {
   const handleDelete = async (id: number) => {
     try {
       await fetchWithAuth(`/vendors/${id}`, {
-        method: 'DELETE',
+        method: 'DELETE'
       })
-      
+
       toast({
-        title: "Success",
-        description: "Vendor deleted successfully",
+        title: 'Success',
+        description: 'Vendor deleted successfully'
       })
-      
+
       // TODO: Implement refresh logic when API is connected
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete vendor",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to delete vendor',
+        variant: 'destructive'
       })
     }
   }
 
   const columns: ColumnDef<Vendor>[] = [
     {
-      accessorKey: "name",
-      header: "Name",
-      cell: ({ row }) => <div>{row.getValue("name")}</div>,
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => <div>{row.getValue('name')}</div>
     },
     {
-      accessorKey: "email",
-      header: "Email",
-      cell: ({ row }) => <div>{row.getValue("email")}</div>,
+      accessorKey: 'email',
+      header: 'Email',
+      cell: ({ row }) => <div>{row.getValue('email')}</div>
     },
     {
-      accessorKey: "phone",
-      header: "Phone",
-      cell: ({ row }) => <div>{row.getValue("phone")}</div>,
+      accessorKey: 'phone',
+      header: 'Phone',
+      cell: ({ row }) => <div>{row.getValue('phone')}</div>
     },
     {
-      accessorKey: "address",
-      header: "Address",
-      cell: ({ row }) => <div>{row.getValue("address")}</div>,
+      accessorKey: 'address',
+      header: 'Address',
+      cell: ({ row }) => <div>{row.getValue('address')}</div>
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const vendor = row.original
 
@@ -140,14 +133,16 @@ export function VendorsTable() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => {
-                  setEditingVendor(vendor)
-                }}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setEditingVendor(vendor)
+                  }}
+                >
                   <Edit2 className="mr-2 h-4 w-4" />
                   Edit
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="text-destructive"
                   onClick={() => {
                     setSelectedVendorId(vendor.id)
@@ -161,8 +156,8 @@ export function VendorsTable() {
             </DropdownMenu>
           )
         )
-      },
-    },
+      }
+    }
   ]
 
   const table = useReactTable({
@@ -180,8 +175,8 @@ export function VendorsTable() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
-    },
+      rowSelection
+    }
   })
 
   return (
@@ -189,10 +184,8 @@ export function VendorsTable() {
       <div className="flex items-center gap-2">
         <Input
           placeholder="Filter vendors..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
       </div>
@@ -204,12 +197,7 @@ export function VendorsTable() {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
                 })}
@@ -219,26 +207,15 @@ export function VendorsTable() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No vendors found.
                 </TableCell>
               </TableRow>
@@ -248,8 +225,8 @@ export function VendorsTable() {
       </div>
       <div className="flex items-center justify-end space-x-2">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+          selected.
         </div>
         <div className="space-x-2">
           <Button
@@ -260,12 +237,7 @@ export function VendorsTable() {
           >
             Previous
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
+          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             Next
           </Button>
         </div>
@@ -288,8 +260,7 @@ export function VendorsTable() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              vendor.
+              This action cannot be undone. This will permanently delete the vendor.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -311,4 +282,3 @@ export function VendorsTable() {
     </div>
   )
 }
-

@@ -1,61 +1,50 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Project } from "@/types/api"
+  DialogTitle
+} from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Project } from '@/types/api'
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  description: z.string().min(10, {
-    message: "Description must be at least 10 characters.",
-  }),
-  location: z.string().min(2, {
-    message: "Location must be at least 2 characters.",
-  }),
-  startDate: z.string().min(1, {
-    message: "Start date is required.",
-  }),
-  endDate: z.string().min(1, {
-    message: "End date is required.",
-  }),
-  status: z.enum(['PLANNED', 'IN_PROGRESS', 'COMPLETED'], {
-    required_error: "Please select a project status.",
-  }),
-}).refine((data) => new Date(data.startDate) <= new Date(data.endDate), {
-  message: "End date must be after start date",
-  path: ["endDate"],
-})
+const formSchema = z
+  .object({
+    name: z.string().min(2, {
+      message: 'Name must be at least 2 characters.'
+    }),
+    description: z.string().min(10, {
+      message: 'Description must be at least 10 characters.'
+    }),
+    location: z.string().min(2, {
+      message: 'Location must be at least 2 characters.'
+    }),
+    startDate: z.string().min(1, {
+      message: 'Start date is required.'
+    }),
+    endDate: z.string().min(1, {
+      message: 'End date is required.'
+    }),
+    status: z.enum(['PLANNED', 'IN_PROGRESS', 'COMPLETED'], {
+      required_error: 'Please select a project status.'
+    })
+  })
+  .refine((data) => new Date(data.startDate) <= new Date(data.endDate), {
+    message: 'End date must be after start date',
+    path: ['endDate']
+  })
 
 type AddProjectDialogProps = {
   open: boolean
@@ -68,13 +57,13 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-      status: "PLANNED",
-    },
+      name: '',
+      description: '',
+      location: '',
+      startDate: '',
+      endDate: '',
+      status: 'PLANNED'
+    }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -85,7 +74,7 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
       onOpenChange(false)
       form.reset()
     } catch (error) {
-      console.error("Failed to add project:", error)
+      console.error('Failed to add project:', error)
     } finally {
       setIsLoading(false)
     }
@@ -96,9 +85,7 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Project</DialogTitle>
-          <DialogDescription>
-            Add a new project to the system. Click save when you're done.
-          </DialogDescription>
+          <DialogDescription>Add a new project to the system. Click save when you're done.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -122,7 +109,7 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Describe the project scope and objectives"
                       className="min-h-[100px]"
                       {...field}
@@ -197,7 +184,7 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
             />
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Adding..." : "Add Project"}
+                {isLoading ? 'Adding...' : 'Add Project'}
               </Button>
             </DialogFooter>
           </form>
@@ -206,4 +193,3 @@ export function AddProjectDialog({ open, onOpenChange }: AddProjectDialogProps) 
     </Dialog>
   )
 }
-

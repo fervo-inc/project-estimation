@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import { Plus } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { MaterialsTable } from "@/components/materials/materials-table"
-import { AddMaterialDialog } from "@/components/materials/add-material-dialog"
-import { useAuth } from "@/contexts/auth-context"
+import { Button } from '@/components/ui/button'
+import { MaterialsTable } from '@/components/materials/materials-table'
+import { AddMaterialDialog } from '@/components/materials/add-material-dialog'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function MaterialsPage() {
   const { hasPermission } = useAuth()
@@ -24,11 +24,7 @@ export default function MaterialsPage() {
         )}
       </div>
       <MaterialsTable />
-      <AddMaterialDialog 
-        open={isAddDialogOpen} 
-        onOpenChange={setIsAddDialogOpen}
-      />
+      <AddMaterialDialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen} />
     </div>
   )
 }
-
