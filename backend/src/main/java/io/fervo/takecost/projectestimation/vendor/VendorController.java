@@ -87,12 +87,12 @@ public class VendorController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a vendor", description = "Remove a vendor from the system")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Vendor deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Vendor deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Vendor not found")
     })
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteVendor(@PathVariable Long id) {
         vendorService.deleteVendor(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

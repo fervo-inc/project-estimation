@@ -92,12 +92,12 @@ public class ProjectLaborController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Remove labor from a project", description = "Delete a labor entry linked to a project")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Project labor deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Project labor deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Project labor not found")
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<Void> deleteProjectLabor(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

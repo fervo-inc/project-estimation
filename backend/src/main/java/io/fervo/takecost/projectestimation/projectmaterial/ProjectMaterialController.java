@@ -109,12 +109,12 @@ public class ProjectMaterialController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Remove material from project", description = "Delete a material linked to a project")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Project material deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Project material deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Project material not found")
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<Void> deleteProjectMaterial(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

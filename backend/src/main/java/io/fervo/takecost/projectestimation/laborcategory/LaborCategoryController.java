@@ -83,12 +83,12 @@ public class LaborCategoryController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a labor category", description = "Remove a labor category from the system")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Labor category deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Labor category deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Labor category not found")
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<Void> deleteLaborCategory(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

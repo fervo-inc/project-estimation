@@ -91,13 +91,13 @@ public class ProjectController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a project", description = "Remove a project from the system")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Project deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Project deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Project not found")
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 

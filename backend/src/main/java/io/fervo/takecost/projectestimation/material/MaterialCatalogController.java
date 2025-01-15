@@ -83,12 +83,12 @@ public class MaterialCatalogController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a material", description = "Remove a material from the catalog")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Material deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Material deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Material not found")
     })
     @PreAuthorize("hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
     public ResponseEntity<Void> deleteMaterial(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
