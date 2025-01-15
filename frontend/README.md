@@ -37,10 +37,6 @@ The application relies on environment variables for configuration. To set up you
 
    The default URL in the `.env.example` is already set to work with the local backend configuration:
 
-   ```.env
-   NEXT_PUBLIC_API_URL=http://127.0.0.1:8080
-   ```
-
 ## Running the Project Using npm
 
 1. Clone the repository:
