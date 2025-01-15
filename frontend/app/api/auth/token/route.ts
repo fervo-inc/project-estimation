@@ -3,6 +3,14 @@ import { NextResponse } from 'next/server'
 
 const COOKIE_NAME = 'auth_token'
 
+export async function GET() {
+  const token = cookies().get(COOKIE_NAME)
+  if (!token) {
+    return new NextResponse('Token not found', { status: 404 })
+  }
+  return new NextResponse(JSON.stringify({ token }), { status: 200 })
+}
+
 export async function POST(request: Request) {
   const { token } = await request.json()
 
