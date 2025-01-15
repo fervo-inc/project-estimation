@@ -11,7 +11,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/hooks/use-toast'
+
 import { useAuth } from '@/contexts/auth-context'
 
 const formSchema = z.object({
@@ -41,7 +42,7 @@ export default function LoginPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -60,11 +61,6 @@ export default function LoginPage() {
 
       const data = await response.json()
       await updateAuthState(data.token)
-
-      toast({
-        title: 'Success',
-        description: 'Logged in successfully'
-      })
 
       router.replace('/dashboard')
     } catch (error) {

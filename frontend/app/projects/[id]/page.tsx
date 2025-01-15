@@ -7,7 +7,7 @@ import { CircleDollarSign, Users, Warehouse } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { fetchWithAuth } from '@/lib/api'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/hooks/use-toast'
 
 interface ProjectEstimate {
   totalMaterialCost: number

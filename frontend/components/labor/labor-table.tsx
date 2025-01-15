@@ -1,22 +1,22 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable
+  SortingState,
+  useReactTable,
+  VisibilityState
 } from '@tanstack/react-table'
-import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
-import { useToast } from '@/components/ui/use-toast'
+import {Edit2, MoreHorizontal, Trash2} from 'lucide-react'
+import {useToast} from '@/hooks/use-toast'
 
-import { Button } from '@/components/ui/button'
+import {Button} from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,8 +24,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {Input} from '@/components/ui/input'
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,9 +36,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
-import { useAuth } from '@/contexts/auth-context'
-import { fetchWithAuth } from '@/lib/api'
-import { LaborCategory } from '@/types/api'
+import {useAuth} from '@/contexts/auth-context'
+import {fetchWithAuth} from '@/lib/api'
+import {LaborCategory} from '@/types/api'
 
 const columns: ColumnDef<LaborCategory>[] = [
   {
@@ -100,11 +100,7 @@ export function LaborTable() {
 
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchLaborCategories()
-  }, [])
-
-  const fetchLaborCategories = async () => {
+  const fetchLaborCategories = useCallback(async () => {
     try {
       const data = await fetchWithAuth('/labor-categories')
       setData(data)
@@ -119,7 +115,7 @@ export function LaborTable() {
     }
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = useCallback(async (id: number) => {
     try {
       await fetchWithAuth(`/labor-categories/${id}`, {
         method: 'DELETE'

@@ -32,7 +32,4 @@ export type Project = {
   startDate: string
   endDate: string
   status: string
-  laborCost: number
-  materialCost: number
-  totalCost: number
 }

@@ -1,15 +1,19 @@
+import {auth} from './auth'
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1'
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
+  const token = await auth.getToken()
   const headers = {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
     ...options.headers
   }
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
-    headers,
-    credentials: 'include' // This ensures cookies are sent with requests
+    headers
+    // credentials: 'include' // This ensures cookies are sent with requests
   })
 
   if (response.status === 401) {
