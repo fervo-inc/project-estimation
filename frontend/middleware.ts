@@ -1,5 +1,5 @@
-import type {NextRequest} from 'next/server'
-import {NextResponse} from 'next/server'
+import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 const COOKIE_NAME = 'auth_token'
 
@@ -8,7 +8,7 @@ const protectedRoutes = ['/dashboard', '/projects', '/materials', '/vendors', '/
 
 export function middleware(request: NextRequest) {
   // Get the pathname of the request
-  const {pathname} = request.nextUrl
+  const { pathname } = request.nextUrl
 
   // Check if the pathname is a protected route
   const isProtectedRoute = protectedRoutes.some((route) => pathname.startsWith(route))

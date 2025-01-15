@@ -38,7 +38,7 @@ import {
 import { Material } from '@/types/api'
 import { useAuth } from '@/contexts/auth-context'
 import { EditMaterialDialog } from './edit-material-dialog'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/hooks/use-toast'
 import { fetchWithAuth } from '@/lib/api'
 
 // Mock data - replace with API call

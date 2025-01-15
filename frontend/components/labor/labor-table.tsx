@@ -1,6 +1,6 @@
 'use client'
 
-import {useCallback, useEffect, useState} from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,10 +13,10 @@ import {
   useReactTable,
   VisibilityState
 } from '@tanstack/react-table'
-import {Edit2, MoreHorizontal, Trash2} from 'lucide-react'
-import {useToast} from '@/hooks/use-toast'
+import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
 
-import {Button} from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,8 +24,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {Input} from '@/components/ui/input'
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,9 +36,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
-import {useAuth} from '@/contexts/auth-context'
-import {fetchWithAuth} from '@/lib/api'
-import {LaborCategory} from '@/types/api'
+import { useAuth } from '@/contexts/auth-context'
+import { fetchWithAuth } from '@/lib/api'
+import { LaborCategory } from '@/types/api'
 
 const columns: ColumnDef<LaborCategory>[] = [
   {
@@ -113,7 +113,7 @@ export function LaborTable() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
 
   const handleDelete = useCallback(async (id: number) => {
     try {

@@ -35,10 +35,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
-import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/contexts/auth-context'
 import { EditVendorDialog } from './edit-vendor-dialog'
 import { fetchWithAuth } from '@/lib/api'
+import { useToast } from '@/hooks/use-toast'
 
 interface Vendor {
   id: number
