@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -19,6 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Project } from '@/types/api'
+import { useToast } from '@/hooks/use-toast'
 
 const formSchema = z
   .object({
@@ -46,47 +47,68 @@ const formSchema = z
     path: ['endDate']
   })
 
-type AddProjectDialogProps = {
+type EditProjectDialogProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
+  project: Project | null
   onSuccess?: () => void
 }
 
-export function AddProjectDialog({ open, onOpenChange, onSuccess }: AddProjectDialogProps) {
+export function EditProjectDialog({ open, onOpenChange, project, onSuccess }: EditProjectDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-      location: '',
-      startDate: '',
-      endDate: '',
-      status: 'PLANNED'
-    }
+    defaultValues: project
+      ? {
+          ...project,
+          status: project.status as 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED'
+        }
+      : {
+          name: '',
+          description: '',
+          location: '',
+          startDate: '',
+          endDate: '',
+          status: 'PLANNED'
+        }
   })
 
-  const onSubmit = useCallback(
-    async (values: z.infer<typeof formSchema>) => {
-      setIsLoading(true)
-      try {
-        // TODO: Implement API call
-        console.log(values)
-        onOpenChange(false)
-        form.reset()
-      } catch (error) {
-        console.error('Failed to add project:', error)
-      } finally {
-        setIsLoading(false)
-        onSuccess?.()
-      }
-    },
-    [onOpenChange, form, onSuccess]
-  )
+  useEffect(() => {
+    if (project) {
+      form.reset({
+        ...project,
+        status: project.status as 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED'
+      })
+    }
+  }, [project, form])
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
+    try {
+      // TODO: Implement API call
+      toast({
+        title: 'Success',
+        description: 'Project updated.'
+      })
+      console.log(values)
+      onOpenChange(false)
+      form.reset()
+    } catch (error) {
+      console.error('Failed to update the project:', error)
+      toast({
+        title: 'Error',
+        description: 'Failed to update the project.',
+        variant: 'destructive'
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={!!project} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Project</DialogTitle>

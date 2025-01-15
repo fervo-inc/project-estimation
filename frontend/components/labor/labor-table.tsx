@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -9,12 +9,13 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  PaginationState,
   SortingState,
   useReactTable,
   VisibilityState
 } from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
-import { useToast } from '@/hooks/use-toast'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -26,116 +27,125 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from '@/components/ui/alert-dialog'
+import { EmptyPagedResponse } from '@/constants/api'
 import { useAuth } from '@/contexts/auth-context'
 import { fetchWithAuth } from '@/lib/api'
-import { LaborCategory } from '@/types/api'
-
-const columns: ColumnDef<LaborCategory>[] = [
-  {
-    accessorKey: 'name',
-    header: 'Category Name',
-    cell: ({ row }) => <div>{row.getValue('name')}</div>
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-    cell: ({ row }) => <div>{row.getValue('description')}</div>
-  },
-  {
-    accessorKey: 'hourlyRate',
-    header: 'Hourly Rate',
-    cell: ({ row }) => <div className="font-medium">${Number(row.getValue('hourlyRate')).toFixed(2)}</div>
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      const labor = row.original
-      const { hasPermission } = useAuth()
-
-      return (
-        hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onSelect={() => {}}>
-                <Edit2 className="mr-2 h-4 w-4" />
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive" onSelect={() => {}}>
-                <Trash2 className="mr-2 h-4 w-4" />
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )
-      )
-    }
-  }
-]
+import { LaborCategory, PagedResponse } from '@/types/api'
+import { ConfirmDeleteDialog } from '../common/confirm-delete-dialog'
 
 export function LaborTable() {
-  const [data, setData] = useState<LaborCategory[]>([])
+  const [data, setData] = useState<PagedResponse<LaborCategory>>(EmptyPagedResponse)
   const [loading, setLoading] = useState(true)
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedLaborId, setSelectedLaborId] = useState<number | null>(null)
-
+  const [editing, setEditing] = useState<LaborCategory | null>(null)
+  const [deleteModel, setDeleteModel] = useState<LaborCategory | null>(null)
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageSize: 10,
+    pageIndex: 0
+  })
   const { toast } = useToast()
+  const { hasPermission } = useAuth()
 
-  const fetchLaborCategories = useCallback(async () => {
-    try {
-      const data = await fetchWithAuth('/labor-categories')
-      setData(data)
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to fetch labor categories',
-        variant: 'destructive'
+  const handleDelete = useCallback(
+    async (id: number) => {
+      setData({
+        ...data,
+        content: data.content.filter((material) => material.id !== id)
       })
-    } finally {
-      setLoading(false)
-    }
-  }, [toast])
+      setDeleteModel(null)
+    },
+    [data]
+  )
 
-  const handleDelete = useCallback(async (id: number) => {
-    try {
-      await fetchWithAuth(`/labor-categories/${id}`, {
-        method: 'DELETE'
-      })
-      setData((prev) => prev.filter((labor) => labor.id !== id))
-      toast({
-        title: 'Success',
-        description: 'Labor category deleted successfully'
-      })
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to delete labor category',
-        variant: 'destructive'
-      })
-    }
-  }
+  const fetchLaborCategories = useCallback(
+    async (pageIndex: number, pageSize: number, order: 'asc' | 'desc' = 'asc') => {
+      try {
+        const response = await fetchWithAuth<PagedResponse<LaborCategory>>(
+          `/labor-categories?page=${pageIndex}&size=${pageSize}&order=${order}`
+        )
+        setData(response)
+      } catch (error) {
+        toast({
+          title: 'Error',
+          description: 'Failed to fetch labor categories',
+          variant: 'destructive'
+        })
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
+
+  useEffect(() => {
+    fetchLaborCategories(pagination.pageIndex, pagination.pageSize)
+  }, [pagination.pageIndex, pagination.pageSize])
+
+  const columns: ColumnDef<LaborCategory>[] = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Category Name',
+        cell: ({ row }) => <div>{row.getValue('name')}</div>
+      },
+      {
+        accessorKey: 'description',
+        header: 'Description',
+        cell: ({ row }) => <div>{row.getValue('description')}</div>
+      },
+      {
+        accessorKey: 'hourlyRate',
+        header: 'Hourly Rate',
+        cell: ({ row }) => <div className="font-medium">${Number(row.getValue('hourlyRate')).toFixed(2)}</div>
+      },
+      {
+        id: 'actions',
+        cell: ({ row }) => {
+          const labor = row.original
+
+          return (
+            hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setEditing(labor)
+                    }}
+                  >
+                    <Edit2 className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-destructive"
+                    onClick={() => {
+                      setDeleteModel(labor)
+                    }}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )
+          )
+        }
+      }
+    ],
+    []
+  )
 
   const table = useReactTable({
-    data,
+    manualPagination: true,
+    data: data.content,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -145,6 +155,7 @@ export function LaborTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
@@ -221,30 +232,14 @@ export function LaborTable() {
         </div>
       </div>
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the labor category.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (selectedLaborId) {
-                  handleDelete(selectedLaborId)
-                }
-                setDeleteDialogOpen(false)
-              }}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDeleteDialog
+        id={deleteModel?.id}
+        deleteEndpointUrl={'/labor-categories'}
+        resourceName="Labor"
+        message={`Are you sure you want to remove "${deleteModel?.name}"?`}
+        onOpenChange={() => setDeleteModel(null)}
+        onSuccess={handleDelete}
+      />
     </div>
   )
 }

@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -14,6 +14,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -25,20 +26,13 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from '@/components/ui/alert-dialog'
+import { EmptyPagedResponse } from '@/constants/api'
 import { useAuth } from '@/contexts/auth-context'
-import { EditVendorDialog } from './edit-vendor-dialog'
-import { fetchWithAuth } from '@/lib/api'
 import { useToast } from '@/hooks/use-toast'
+import { fetchWithAuth } from '@/lib/api'
+import { PagedResponse } from '@/types/api'
+import { ConfirmDeleteDialog } from '../common/confirm-delete-dialog'
+import { EditVendorDialog } from './edit-vendor-dialog'
 
 interface Vendor {
   id: number
@@ -48,120 +42,118 @@ interface Vendor {
   address: string
 }
 
-// Mock data - replace with API call
-const mockData: Vendor[] = [
-  {
-    id: 1,
-    name: 'ABC Construction Supplies',
-    email: 'sales@abcsupplies.com',
-    phone: '(555) 123-4567',
-    address: '123 Builder St, Construction City, CC 12345'
-  },
-  {
-    id: 2,
-    name: 'XYZ Materials Co',
-    email: 'contact@xyzmaterials.com',
-    phone: '(555) 987-6543',
-    address: '456 Material Ave, Supply Town, ST 67890'
-  }
-]
-
 export function VendorsTable() {
+  const [data, setData] = useState<PagedResponse<Vendor>>(EmptyPagedResponse)
+  const [loading, setLoading] = useState(true)
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const [editingVendor, setEditingVendor] = useState<Vendor | null>(null)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedVendorId, setSelectedVendorId] = useState<number | null>(null)
+  const [deleteModel, setDeleteModel] = useState<Vendor | null>(null)
+  const [pagination, setPagination] = useState<PaginationState>({ pageSize: 10, pageIndex: 0 })
   const { toast } = useToast()
   const { hasPermission } = useAuth()
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = useCallback(
+    async (id: number) => {
+      setData({
+        ...data,
+        content: data.content.filter((material) => material.id !== id)
+      })
+      setDeleteModel(null)
+    },
+    [data]
+  )
+
+  const fetchVendors = useCallback(async (pageIndex: number, pageSize: number, order: 'asc' | 'desc' = 'asc') => {
     try {
-      await fetchWithAuth(`/vendors/${id}`, {
-        method: 'DELETE'
-      })
-
-      toast({
-        title: 'Success',
-        description: 'Vendor deleted successfully'
-      })
-
-      // TODO: Implement refresh logic when API is connected
+      const response = await fetchWithAuth<PagedResponse<Vendor>>(
+        `/vendors?page=${pageIndex}&size=${pageSize}&order=${order}`
+      )
+      setData(response)
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to delete vendor',
+        description: 'Failed to fetch vendors: ' + (error instanceof Error ? error.message : 'Unknown error'),
         variant: 'destructive'
       })
+    } finally {
+      setLoading(false)
     }
-  }
+  }, [])
 
-  const columns: ColumnDef<Vendor>[] = [
-    {
-      accessorKey: 'name',
-      header: 'Name',
-      cell: ({ row }) => <div>{row.getValue('name')}</div>
-    },
-    {
-      accessorKey: 'email',
-      header: 'Email',
-      cell: ({ row }) => <div>{row.getValue('email')}</div>
-    },
-    {
-      accessorKey: 'phone',
-      header: 'Phone',
-      cell: ({ row }) => <div>{row.getValue('phone')}</div>
-    },
-    {
-      accessorKey: 'address',
-      header: 'Address',
-      cell: ({ row }) => <div>{row.getValue('address')}</div>
-    },
-    {
-      id: 'actions',
-      cell: ({ row }) => {
-        const vendor = row.original
+  useEffect(() => {
+    fetchVendors(pagination.pageIndex, pagination.pageSize)
+  }, [pagination.pageIndex, pagination.pageSize])
 
-        return (
-          hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => {
-                    setEditingVendor(vendor)
-                  }}
-                >
-                  <Edit2 className="mr-2 h-4 w-4" />
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-destructive"
-                  onClick={() => {
-                    setSelectedVendorId(vendor.id)
-                    setDeleteDialogOpen(true)
-                  }}
-                >
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+  const columns: ColumnDef<Vendor>[] = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        cell: ({ row }) => <div>{row.getValue('name')}</div>
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        cell: ({ row }) => <div>{row.getValue('email')}</div>
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        cell: ({ row }) => <div>{row.getValue('phone')}</div>
+      },
+      {
+        accessorKey: 'address',
+        header: 'Address',
+        cell: ({ row }) => <div>{row.getValue('address')}</div>
+      },
+      {
+        id: 'actions',
+        cell: ({ row }) => {
+          const vendor = row.original
+
+          return (
+            hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setEditingVendor(vendor)
+                    }}
+                  >
+                    <Edit2 className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-destructive"
+                    onClick={() => {
+                      setDeleteModel(vendor)
+                    }}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )
           )
-        )
+        }
       }
-    }
-  ]
+    ],
+    [hasPermission]
+  )
 
   const table = useReactTable({
-    data: mockData,
+    manualPagination: true,
+    data: data.content,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -171,6 +163,7 @@ export function VendorsTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
@@ -178,6 +171,10 @@ export function VendorsTable() {
       rowSelection
     }
   })
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="space-y-4 min-w-[800px] w-full max-w-[1400px]">
@@ -255,30 +252,14 @@ export function VendorsTable() {
         }}
       />
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the vendor.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (selectedVendorId) {
-                  handleDelete(selectedVendorId)
-                }
-                setDeleteDialogOpen(false)
-              }}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDeleteDialog
+        id={deleteModel?.id}
+        deleteEndpointUrl="/vendors"
+        resourceName="Vendor"
+        message={`Are you sure you want to remove ${deleteModel?.name}?`}
+        onOpenChange={() => setDeleteModel(null)}
+        onSuccess={handleDelete}
+      />
     </div>
   )
 }

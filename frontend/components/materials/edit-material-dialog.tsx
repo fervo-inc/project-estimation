@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -17,8 +17,8 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/hooks/use-toast'
-import { Material } from '@/types/api'
 import { fetchWithAuth } from '@/lib/api'
+import { Material } from '@/types/api'
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -43,13 +43,12 @@ const formSchema = z.object({
 })
 
 type EditMaterialDialogProps = {
-  open: boolean
   onOpenChange: (open: boolean) => void
   material: Material | null
   onSuccess?: () => void
 }
 
-export function EditMaterialDialog({ open, onOpenChange, material, onSuccess }: EditMaterialDialogProps) {
+export function EditMaterialDialog({ onOpenChange, material, onSuccess }: EditMaterialDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
 
@@ -66,7 +65,7 @@ export function EditMaterialDialog({ open, onOpenChange, material, onSuccess }: 
     }
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
     if (!material?.id) return
 
     setIsLoading(true)
@@ -93,10 +92,10 @@ export function EditMaterialDialog({ open, onOpenChange, material, onSuccess }: 
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={!!material} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Material</DialogTitle>

@@ -2,14 +2,18 @@ import { auth } from './auth'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1'
 
-export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
+async function buildBaseHeaders(headerInit: HeadersInit = {}) {
   const token = await auth.getToken()
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
-    ...options.headers
+    ...headerInit
   }
+  return headers
+}
 
+export async function fetchWithAuth<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  const headers = await buildBaseHeaders(options.headers)
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers
@@ -27,5 +31,18 @@ export async function fetchWithAuth(endpoint: string, options: RequestInit = {})
     throw new Error(`API request failed: ${response.statusText}`)
   }
 
-  return response.json()
+  return response.json() as T
+}
+
+export async function deleteResource(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<{ status: number; deleted: boolean }> {
+  const headers = await buildBaseHeaders(options.headers)
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'DELETE',
+    headers
+  })
+  return { status: response.status, deleted: response.status === 200 || response.status === 204 }
 }

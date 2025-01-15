@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -51,32 +51,35 @@ export function AddLaborDialog({ open, onOpenChange, onSuccess }: AddLaborDialog
     }
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    try {
-      await fetchWithAuth('/labor-categories', {
-        method: 'POST',
-        body: JSON.stringify(values)
-      })
+  const onSubmit = useCallback(
+    async (values: z.infer<typeof formSchema>) => {
+      setIsLoading(true)
+      try {
+        await fetchWithAuth('/labor-categories', {
+          method: 'POST',
+          body: JSON.stringify(values)
+        })
 
-      toast({
-        title: 'Success',
-        description: 'Labor category added successfully'
-      })
+        toast({
+          title: 'Success',
+          description: 'Labor category added successfully'
+        })
 
-      onOpenChange(false)
-      form.reset()
-      onSuccess?.()
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to add labor category',
-        variant: 'destructive'
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+        onOpenChange(false)
+        form.reset()
+        onSuccess?.()
+      } catch (error) {
+        toast({
+          title: 'Error',
+          description: 'Failed to add labor category',
+          variant: 'destructive'
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [onSuccess, onOpenChange, toast, form]
+  )
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

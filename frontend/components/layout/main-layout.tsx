@@ -1,15 +1,15 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
-import { Building2, CircleDollarSign, Hammer, LayoutDashboard, Users, Store } from 'lucide-react'
+import { Building2, Hammer, LayoutDashboard, Store, Users } from 'lucide-react'
 import { ThemeProvider } from 'next-themes'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Sidebar, SidebarContent, SidebarHeader, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { DarkModeToggle } from '@/components/dark-mode-toggle'
 import { UserNav } from '@/components/layout/user-nav'
+import { Button } from '@/components/ui/button'
+import { Sidebar, SidebarContent, SidebarHeader, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -44,12 +44,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       href: '/labor',
       icon: Users,
       current: pathname.startsWith('/labor')
-    },
-    {
-      name: 'Estimates',
-      href: '/estimates',
-      icon: CircleDollarSign,
-      current: pathname.startsWith('/estimates')
     }
   ]
 

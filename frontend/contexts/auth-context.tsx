@@ -21,8 +21,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const hasPermission = (requiredRoles: Role[]) => {
-    console.log('AuthProvider.isAuthenticated:', isAuthenticated)
-    console.log('AuthProvider.hasPermission:', requiredRoles)
     const roleHierarchy: Record<Role, number> = {
       ADMIN: 3,
       PROJECT_MANAGER: 2,
@@ -36,15 +34,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateAuthState = useCallback(
     async (token: string) => {
-      console.log('AuthProvider.updateAuthState:', token)
       try {
         await auth.setToken(token)
         const decodedToken: DecodedToken = jwtDecode(token)
-        console.log('AuthProvider.updateAuthState - roles:', decodedToken.roles)
         setRole(decodedToken.roles[0])
         setIsAuthenticated(true)
       } catch (error) {
-        console.error('AuthProvider - Failed to decode token', error)
         await logout()
       }
     },
@@ -52,7 +47,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
 
   const restoreAuthState = useCallback(async () => {
-    console.log('AuthProvider.restoreAuthState')
     const token = await auth.getToken()
     if (token) {
       await updateAuthState(token)
@@ -60,7 +54,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [updateAuthState, auth.getToken])
 
   const logout = useCallback(async () => {
-    console.log('AuthProvider.logout')
     await auth.removeToken()
     setIsAuthenticated(false)
     setRole('NONE')

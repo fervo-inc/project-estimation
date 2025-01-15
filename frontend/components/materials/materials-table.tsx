@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useMemo } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -14,7 +14,9 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { ConfirmDeleteDialog } from '@/components/common/confirm-delete-dialog'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -25,154 +27,138 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from '@/components/ui/alert-dialog'
-import { Material } from '@/types/api'
+import { EmptyPagedResponse } from '@/constants/api'
 import { useAuth } from '@/contexts/auth-context'
-import { EditMaterialDialog } from './edit-material-dialog'
 import { useToast } from '@/hooks/use-toast'
 import { fetchWithAuth } from '@/lib/api'
-
-// Mock data - replace with API call
-const mockData: Material[] = [
-  {
-    id: 1,
-    name: 'Concrete Mix',
-    category: 'Building Materials',
-    subCategory: 'Concrete',
-    unitType: 'Bag',
-    unitPrice: 15.99,
-    inStock: 500,
-    leadTimeDays: 3,
-    vendorId: 1
-  },
-  {
-    id: 2,
-    name: 'Steel Rebar',
-    category: 'Building Materials',
-    subCategory: 'Steel',
-    unitType: 'Piece',
-    unitPrice: 25.5,
-    inStock: 200,
-    leadTimeDays: 5,
-    vendorId: 2
-  }
-]
+import { Material, PagedResponse } from '@/types/api'
+import { EditMaterialDialog } from './edit-material-dialog'
 
 export function MaterialsTable() {
+  const [data, setData] = useState<PagedResponse<Material>>(EmptyPagedResponse)
+  const [loading, setLoading] = useState(true)
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
-  const [editingMaterial, setEditingMaterial] = useState<Material | null>(null)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedMaterialId, setSelectedMaterialId] = useState<number | null>(null)
+  const [editing, setEditing] = useState<Material | null>(null)
+  const [deleteModel, setDeleteModel] = useState<Material | null>(null)
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageSize: 10,
+    pageIndex: 0
+  })
   const { toast } = useToast()
   const { hasPermission } = useAuth()
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = useCallback(
+    async (id: number) => {
+      setData({
+        ...data,
+        content: data.content.filter((material) => material.id !== id)
+      })
+      setDeleteModel(null)
+    },
+    [data]
+  )
+
+  const fetchMaterials = useCallback(async (pageIndex: number, pageSize: number, order: 'asc' | 'desc' = 'asc') => {
     try {
-      await fetchWithAuth(`/materials/${id}`, {
-        method: 'DELETE'
-      })
-
-      toast({
-        title: 'Success',
-        description: 'Material deleted successfully'
-      })
-
-      // TODO: Implement refresh logic when API is connected
+      const response = await fetchWithAuth<PagedResponse<Material>>(
+        `/materials?page=${pageIndex}&size=${pageSize}&order=${order}`
+      )
+      setData(response)
     } catch (error) {
       toast({
         title: 'Error',
-        description: 'Failed to delete material',
+        description: 'Failed to fetch materials: ' + (error instanceof Error ? error.message : 'Unknown error'),
         variant: 'destructive'
       })
+    } finally {
+      setLoading(false)
     }
-  }
+  }, [])
 
-  const columns: ColumnDef<Material>[] = [
-    {
-      accessorKey: 'name',
-      header: 'Name',
-      cell: ({ row }) => <div>{row.getValue('name')}</div>
-    },
-    {
-      accessorKey: 'category',
-      header: 'Category',
-      cell: ({ row }) => <div>{row.getValue('category')}</div>
-    },
-    {
-      accessorKey: 'unitType',
-      header: 'Unit',
-      cell: ({ row }) => <div>{row.getValue('unitType')}</div>
-    },
-    {
-      accessorKey: 'unitPrice',
-      header: 'Unit Price',
-      cell: ({ row }) => <div className="font-medium">${Number(row.getValue('unitPrice')).toFixed(2)}</div>
-    },
-    {
-      accessorKey: 'inStock',
-      header: 'In Stock',
-      cell: ({ row }) => <div>{row.getValue('inStock')}</div>
-    },
-    {
-      accessorKey: 'leadTimeDays',
-      header: 'Lead Time (Days)',
-      cell: ({ row }) => <div>{row.getValue('leadTimeDays')}</div>
-    },
-    {
-      id: 'actions',
-      cell: ({ row }) => {
-        const material = row.original
+  useEffect(() => {
+    fetchMaterials(pagination.pageIndex, pagination.pageSize)
+  }, [pagination.pageIndex, pagination.pageSize])
 
-        return (
-          hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => {
-                    setEditingMaterial(material)
-                  }}
-                >
-                  <Edit2 className="mr-2 h-4 w-4" />
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-destructive"
-                  onClick={() => {
-                    setSelectedMaterialId(material.id)
-                    setDeleteDialogOpen(true)
-                  }}
-                >
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+  const columns: ColumnDef<Material>[] = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        cell: ({ row }) => <div>{row.getValue('name')}</div>
+      },
+      {
+        accessorKey: 'category',
+        header: 'Category',
+        cell: ({ row }) => <div>{row.getValue('category')}</div>
+      },
+      {
+        accessorKey: 'unitType',
+        header: 'Unit',
+        cell: ({ row }) => <div>{row.getValue('unitType')}</div>
+      },
+      {
+        accessorKey: 'unitPrice',
+        header: 'Unit Price',
+        cell: ({ row }) => <div className="font-medium">${Number(row.getValue('unitPrice')).toFixed(2)}</div>
+      },
+      {
+        accessorKey: 'inStock',
+        header: 'In Stock',
+        cell: ({ row }) => <div>{row.getValue('inStock')}</div>
+      },
+      {
+        accessorKey: 'leadTimeDays',
+        header: 'Lead Time (Days)',
+        cell: ({ row }) => <div>{row.getValue('leadTimeDays')}</div>
+      },
+      {
+        id: 'actions',
+        cell: ({ row }) => {
+          const material = row.original
+
+          return (
+            hasPermission(['ADMIN', 'PROJECT_MANAGER']) && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setEditing(material)
+                    }}
+                  >
+                    <Edit2 className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-destructive"
+                    onClick={() => {
+                      setDeleteModel(material)
+                    }}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )
           )
-        )
+        }
       }
-    }
-  ]
+    ],
+    [hasPermission]
+  )
 
   const table = useReactTable({
-    data: mockData,
+    manualPagination: true,
+    data: data.content,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -182,6 +168,7 @@ export function MaterialsTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
@@ -189,6 +176,10 @@ export function MaterialsTable() {
       rowSelection
     }
   })
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="space-y-4 min-w-[800px] w-full max-w-[1400px]">
@@ -255,41 +246,24 @@ export function MaterialsTable() {
       </div>
 
       <EditMaterialDialog
-        open={!!editingMaterial}
         onOpenChange={(isOpen) => {
-          if (!isOpen) setEditingMaterial(null)
+          if (!isOpen) setEditing(null)
         }}
-        material={editingMaterial}
+        material={editing}
         onSuccess={() => {
           // TODO: Implement refresh logic when API is connected
-          setEditingMaterial(null)
+          setEditing(null)
         }}
       />
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the material.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (selectedMaterialId) {
-                  handleDelete(selectedMaterialId)
-                }
-                setDeleteDialogOpen(false)
-              }}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDeleteDialog
+        id={deleteModel?.id}
+        deleteEndpointUrl="/materials"
+        resourceName="Material"
+        message={`Are you sure you want to remove ${deleteModel?.name}?`}
+        onOpenChange={() => setDeleteModel(null)}
+        onSuccess={handleDelete}
+      />
     </div>
   )
 }
