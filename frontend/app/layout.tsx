@@ -17,9 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen bg-background`}>
+        <Toaster />
         <AuthProvider>
           <RootLayoutClient>{children}</RootLayoutClient>
-          <Toaster />
         </AuthProvider>
       </body>
     </html>
